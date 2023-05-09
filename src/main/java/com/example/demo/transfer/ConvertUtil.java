@@ -1,8 +1,12 @@
 package com.example.demo.transfer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,5 +39,28 @@ public class ConvertUtil {
             return;
         }
         BeanUtils.copyProperties(from, data);
+    }
+
+    public static <F, T> T convert(final F from, final Class<T> clazz) {
+        return convert(from, clazz, null);
+    }
+
+    /**
+     * 批量数据转换——附带额外条件
+     */
+    public static <F, T> List<T> convertList(final List<F> fromList, final Class<T> clazz,
+                                             final ManualTransfer<F, T> manualTransfer) {
+        if (CollectionUtils.isEmpty(fromList)) {
+            return Collections.emptyList();
+        }
+        final List<T> toList = new ArrayList<>(fromList.size());
+        for (final F from : fromList) {
+            if (manualTransfer == null) {
+                toList.add(convert(from, clazz));
+            } else {
+                toList.add(convert(from, clazz, manualTransfer));
+            }
+        }
+        return toList;
     }
 }
