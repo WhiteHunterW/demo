@@ -12,9 +12,4 @@ public interface UserService {
 
     void insertUser(User user);
 
-    default void tw() {
-        final int a = 9;
-
-    }
-
 }

@@ -1,6 +1,7 @@
 package support;
 
 import bean.BeanDefinition;
+import exception.BizException;
 
 /**
  * Function:
@@ -14,9 +15,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     protected Object createBean(String beanName, BeanDefinition beanDefinition) {
         Object bean = null;
         try {
-            bean = beanDefinition.getClass().newInstance();
+            bean = beanDefinition.getBeanClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-
+         throw new BizException("create bean error");
         }
         // 放入单例容器？
         addSingletonBean(beanName, bean);

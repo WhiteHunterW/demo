@@ -11,13 +11,13 @@ public class BeanDefinition {
     /**
      * 对象
      */
-    private Class<?> bean;
+    private Class beanClass;
 
     public BeanDefinition(Class bean) {
-        this.bean = bean;
+        this.beanClass = bean;
     }
 
-    public Object getBean() {
-        return bean;
+    public Class getBeanClass() {
+        return beanClass;
     }
 }

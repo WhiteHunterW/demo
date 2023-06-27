@@ -1,9 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.data.User;
+import com.example.demo.listener.retry.DefaultRetrySupport;
+import com.example.demo.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Objects;
 
 /**
@@ -14,15 +18,22 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
-    /*@Autowired
-    private UserMapper userMapper;*/
+    private RetryService retryService;
 
+
+    public UserServiceImpl() {
+
+    }
+
+    public UserServiceImpl(@Autowired RetryService retryService) {
+        this.retryService = retryService;
+    }
+
+    @Override
     public void insertUser(User user) {
-        if(Objects.isNull(user)){
-            return;
-        }
+        log.info("test bean factory");
         //userMapper.insert(user);
     }
 }

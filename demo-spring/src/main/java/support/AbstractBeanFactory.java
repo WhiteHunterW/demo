@@ -11,13 +11,13 @@ import java.util.Objects;
  * @author wenzeng
  * @date 2023/6/8
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory{
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
 
     @Override
     public Object getBean(String beanName) {
         Object obj = getSingletonBean(beanName);
-        if(Objects.nonNull(obj)) {
+        if (Objects.nonNull(obj)) {
             return obj;
         }
         // 为空怎么办？ 创建一个新的？
@@ -27,14 +27,17 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     /**
      * 获取bean元数据
+     *
      * @param beanName
      * @return
+     * @throws Exception
      */
     protected abstract BeanDefinition getBeanDefinition(String beanName);
 
 
     /**
      * 创建bean实例
+     *
      * @param beanName
      * @param beanDefinition
      * @return

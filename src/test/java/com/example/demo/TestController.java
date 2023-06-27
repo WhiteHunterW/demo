@@ -15,10 +15,10 @@ import java.util.function.Consumer;
  * @date 2022/1/16
  */
 @Slf4j
-public class TestController {
+class TestController {
 
     @Test
-    public void testConvert(){
+    void testConvert(){
         final User user = new User();
         user.setName("testUser");
         user.setGender(1);
@@ -31,7 +31,7 @@ public class TestController {
     }
 
     @Test
-    public void testAndThen(){
+    void testAndThen(){
         final Consumer<Integer> consumer = System.out::println;
         final Consumer<Integer> consumer1 = i -> System.out.println(i + 10);
         consumer.andThen(consumer1).accept(3);
