@@ -19,6 +19,7 @@ public interface InstantiationStrategy {
      * @param beanName
      * @param constructor
      * @param args
+     * @throws
      * @return
      */
     Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor constructor, Object[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;

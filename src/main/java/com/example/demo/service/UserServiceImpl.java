@@ -20,16 +20,23 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private RetryService retryService;
+    //private RetryService retryService;
 
+    private String userName;
 
     public UserServiceImpl() {
 
     }
 
-    public UserServiceImpl(@Autowired RetryService retryService) {
-        this.retryService = retryService;
+
+    public UserServiceImpl(String userName) {
+        this.userName = userName;
     }
+
+
+    /*public UserServiceImpl(@Autowired RetryService retryService) {
+        this.retryService = retryService;
+    }*/
 
     @Override
     public void insertUser(User user) {

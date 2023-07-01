@@ -26,8 +26,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     }
 
 
-    public Object getBean(String beanName, BeanDefinition beanDefinition, Object[] args) {
-        return null;
+    @Override
+    public Object getBean(String beanName, Object...args) {
+        Object bean = getSingletonBean(beanName);
+        if(null != bean) {
+            return bean;
+        }
+        BeanDefinition beanDefinition = getBeanDefinition(beanName);
+        return createBean(beanName, beanDefinition, args);
     }
 
     /**
@@ -48,6 +54,16 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      * @return
      */
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition);
+
+
+    /**
+     * 实例化带参数的bean
+     * @param beanName
+     * @param beanDefinition
+     * @param args
+     * @return
+     */
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args);
 
 
 }
