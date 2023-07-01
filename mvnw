@@ -50,7 +50,7 @@ if [ -z "$MAVEN_SKIP_RC" ] ; then
 
 fi
 
-# OS specific com.example.springframe.support.  $var _must_ be set to either true or false.
+# OS specific support.  $var _must_ be set to either true or false.
 cygwin=false;
 darwin=false;
 mingw=false
@@ -72,7 +72,7 @@ esac
 
 if [ -z "$JAVA_HOME" ] ; then
   if [ -r /etc/gentoo-release ] ; then
-    JAVA_HOME=`java-com.example.springframe.config --jre-home`
+    JAVA_HOME=`java-config --jre-home`
   fi
 fi
 
