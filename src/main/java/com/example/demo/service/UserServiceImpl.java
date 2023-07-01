@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        log.info("test bean factory");
+        log.info("test com.example.springframe.bean factory");
         //userMapper.insert(user);
     }
 }

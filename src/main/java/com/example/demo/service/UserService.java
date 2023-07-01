@@ -10,6 +10,10 @@ import com.example.demo.data.User;
  */
 public interface UserService {
 
+    /**
+     *  插入数据库
+     * @param user
+     */
     void insertUser(User user);
 
 }

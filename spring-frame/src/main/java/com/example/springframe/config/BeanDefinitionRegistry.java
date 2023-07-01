@@ -1,6 +1,6 @@
-package config;
+package com.example.springframe.config;
 
-import bean.BeanDefinition;
+import com.example.springframe.bean.BeanDefinition;
 
 /**
  * Function:

@@ -1,7 +1,7 @@
-package support;
+package com.example.springframe.support;
 
-import bean.BeanDefinition;
-import exception.BizException;
+import com.example.springframe.bean.BeanDefinition;
+import com.example.springframe.exception.BizException;
 
 /**
  * Function:
@@ -17,7 +17,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         try {
             bean = beanDefinition.getBeanClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-         throw new BizException("create bean error");
+         throw new BizException("create com.example.springframe.bean error");
         }
         // 放入单例容器？
         addSingletonBean(beanName, bean);

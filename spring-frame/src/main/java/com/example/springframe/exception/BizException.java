@@ -1,8 +1,8 @@
-package exception;
+package com.example.springframe.exception;
 
 /**
  * Function:
- * 业务异常 exception
+ * 业务异常 com.example.springframe.exception
  * @author wenzeng
  * @date 2023/6/13
  */

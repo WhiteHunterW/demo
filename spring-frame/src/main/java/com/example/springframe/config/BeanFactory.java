@@ -1,4 +1,4 @@
-package config;
+package com.example.springframe.config;
 
 /**
  * Function:
@@ -14,4 +14,12 @@ public interface BeanFactory {
      * @return
      */
     Object getBean(String beanName);
+
+    /**
+     * 实例化有参的bean对象
+     * @param beanName
+     * @param args
+     * @return
+     */
+    Object getBean(String beanName, Object ... args);
 }

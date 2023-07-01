@@ -1,11 +1,11 @@
 package com.example.demo;
 
-import bean.BeanDefinition;
+import com.example.springframe.bean.BeanDefinition;
 import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import support.DefaultListableBeanFactory;
+import com.example.springframe.support.DefaultListableBeanFactory;
 
 /**
  * Function:

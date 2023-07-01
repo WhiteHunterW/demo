@@ -1,8 +1,8 @@
-package support;
+package com.example.springframe.support;
 
-import bean.BeanDefinition;
-import config.BeanDefinitionRegistry;
-import exception.BizException;
+import com.example.springframe.bean.BeanDefinition;
+import com.example.springframe.config.BeanDefinitionRegistry;
+import com.example.springframe.exception.BizException;
 
 import java.util.Map;
 import java.util.Objects;
@@ -30,8 +30,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     protected BeanDefinition getBeanDefinition(String beanName) {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if(Objects.isNull(beanDefinition)) {
-            throw new BizException("bean not be defined");
+            throw new BizException("com.example.springframe.bean not be defined");
         }
         return beanDefinition;
+    }
+
+    @Override
+    public Object getBean(String beanName, Object... args) {
+        return null;
     }
 }

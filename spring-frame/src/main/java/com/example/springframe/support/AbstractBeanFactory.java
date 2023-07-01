@@ -1,7 +1,7 @@
-package support;
+package com.example.springframe.support;
 
-import bean.BeanDefinition;
-import config.BeanFactory;
+import com.example.springframe.bean.BeanDefinition;
+import com.example.springframe.config.BeanFactory;
 
 import java.util.Objects;
 
@@ -23,6 +23,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         // 为空怎么办？ 创建一个新的？
         BeanDefinition definition = getBeanDefinition(beanName);
         return createBean(beanName, definition);
+    }
+
+
+    public Object getBean(String beanName, BeanDefinition beanDefinition, Object[] args) {
+        return null;
     }
 
     /**
