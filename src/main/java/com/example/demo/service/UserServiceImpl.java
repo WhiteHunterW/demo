@@ -1,14 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.data.User;
-import com.example.demo.listener.retry.DefaultRetrySupport;
-import com.example.demo.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.Objects;
 
 /**
  * Function:
@@ -20,7 +14,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //private RetryService retryService;
+    private RetryService retryService;
 
     private String userName;
 

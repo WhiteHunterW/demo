@@ -1,11 +1,15 @@
 package com.example.springframe.support;
 
+import com.example.springframe.PropertyValue;
+import com.example.springframe.PropertyValues;
 import com.example.springframe.bean.BeanDefinition;
+import com.example.springframe.bean.BeanReReference;
 import com.example.springframe.exception.BizException;
 import com.example.springframe.strategy.CglibSubclassingInstantiationStrategy;
 import com.example.springframe.strategy.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -28,7 +32,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             bean = beanDefinition.getBeanClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            // 设置对象属性
+            applyBeanPropertyValues(beanName, bean, beanDefinition);
+        } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
          throw new BizException("create com.example.springframe.bean error");
         }
         // 放入单例容器？
@@ -45,7 +51,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             bean = createBeanInstance(beanName, beanDefinition, args);
-        } catch (InvocationTargetException | InstantiationException |IllegalAccessException | NoSuchMethodException e) {
+            // 设置对象属性
+            applyBeanPropertyValues(beanName, bean, beanDefinition);
+        } catch (InvocationTargetException | InstantiationException
+                |IllegalAccessException | NoSuchMethodException | NoSuchFieldException e) {
             throw new BizException("create bean error");
         }
         addSingletonBean(beanName, bean);
@@ -64,5 +73,37 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             }
         }
         return instantiationStrategy.instantiate(beanDefinition, beanName, constructor, args);
+    }
+
+    /**
+     * 设置对象属性
+     * @param beanName
+     * @param obj
+     * @param beanDefinition
+     */
+    protected void applyBeanPropertyValues(String beanName, Object obj, BeanDefinition beanDefinition) throws IllegalAccessException, NoSuchFieldException {
+        PropertyValues propertyValues = beanDefinition.getPropertyValues();
+        if(null == propertyValues) {
+            return;
+        }
+        /*Field[] fields = obj.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object value = propertyValues.getPropertyValue(field.getName());
+            field.set(obj, value);
+        }*/
+        for (PropertyValue pv : propertyValues.getPropertyValueList()) {
+            String name = pv.getName();
+            Object value = pv.getValue();
+            if(value instanceof BeanReReference) {
+                BeanReReference reReference = (BeanReReference) value;
+                value = getBean(reReference.getBeanName());
+            }
+            Class<?> cl = obj.getClass();
+            // 反射根据name获取不到字段会直接抛NoSuchField的异常
+            Field field = cl.getDeclaredField(name);
+            field.setAccessible(true);
+            field.set(obj, value);
+        }
     }
 }
