@@ -1,12 +1,12 @@
-package com.example.springframe.support;
+package com.example.springframe.beans.support;
 
-import com.example.springframe.PropertyValue;
-import com.example.springframe.PropertyValues;
-import com.example.springframe.bean.BeanDefinition;
-import com.example.springframe.bean.BeanReReference;
+import com.example.springframe.beans.BeanDefinition;
+import com.example.springframe.beans.BeanReReference;
+import com.example.springframe.beans.PropertyValue;
+import com.example.springframe.beans.PropertyValues;
+import com.example.springframe.beans.strategy.CglibSubclassingInstantiationStrategy;
+import com.example.springframe.beans.strategy.InstantiationStrategy;
 import com.example.springframe.exception.BizException;
-import com.example.springframe.strategy.CglibSubclassingInstantiationStrategy;
-import com.example.springframe.strategy.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

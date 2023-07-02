@@ -1,6 +1,4 @@
-package com.example.springframe.bean;
-
-import com.example.springframe.PropertyValues;
+package com.example.springframe.beans;
 
 /**
  * Function:

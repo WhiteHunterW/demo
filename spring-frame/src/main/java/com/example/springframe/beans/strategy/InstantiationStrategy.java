@@ -1,6 +1,6 @@
-package com.example.springframe.strategy;
+package com.example.springframe.beans.strategy;
 
-import com.example.springframe.bean.BeanDefinition;
+import com.example.springframe.beans.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

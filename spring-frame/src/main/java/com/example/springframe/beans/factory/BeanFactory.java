@@ -1,4 +1,4 @@
-package com.example.springframe.config;
+package com.example.springframe.beans.factory;
 
 /**
  * Function:
@@ -22,4 +22,13 @@ public interface BeanFactory {
      * @return
      */
     Object getBean(String beanName, Object ... args);
+
+    /**
+     * 根据类型获取bean
+     * @param name
+     * @param requireType
+     * @param <T>
+     * @return
+     */
+    <T> T getBeanOfType(String name, Class<T> requireType);
 }

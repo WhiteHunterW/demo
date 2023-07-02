@@ -1,4 +1,4 @@
-package com.example.springframe.bean;
+package com.example.springframe.beans;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

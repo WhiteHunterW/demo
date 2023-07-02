@@ -1,7 +1,7 @@
-package com.example.springframe.support;
+package com.example.springframe.beans.support;
 
-import com.example.springframe.bean.BeanDefinition;
-import com.example.springframe.config.BeanDefinitionRegistry;
+import com.example.springframe.beans.BeanDefinition;
+import com.example.springframe.beans.config.BeanDefinitionRegistry;
 import com.example.springframe.exception.BizException;
 
 import java.util.Map;

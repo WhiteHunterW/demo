@@ -1,4 +1,4 @@
-package com.example.springframe.config;
+package com.example.springframe.beans.config;
 
 /**
  * Function:

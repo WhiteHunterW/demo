@@ -1,4 +1,4 @@
-package com.example.springframe;
+package com.example.springframe.beans;
 
 /**
  * Function:

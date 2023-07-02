@@ -1,6 +1,6 @@
-package com.example.springframe.support;
+package com.example.springframe.beans.support;
 
-import com.example.springframe.config.SingletonBeanRegistry;
+import com.example.springframe.beans.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

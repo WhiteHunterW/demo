@@ -1,7 +1,7 @@
-package com.example.springframe.support;
+package com.example.springframe.beans.support;
 
-import com.example.springframe.bean.BeanDefinition;
-import com.example.springframe.config.BeanFactory;
+import com.example.springframe.beans.BeanDefinition;
+import com.example.springframe.beans.factory.BeanFactory;
 
 import java.util.Objects;
 

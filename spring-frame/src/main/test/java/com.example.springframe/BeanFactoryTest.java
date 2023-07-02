@@ -1,13 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.service.RetryService;
-import com.example.demo.service.UserService;
-import com.example.demo.service.UserServiceImpl;
-import com.example.springframe.PropertyValue;
-import com.example.springframe.PropertyValues;
-import com.example.springframe.bean.BeanDefinition;
-import com.example.springframe.bean.BeanReReference;
-import com.example.springframe.support.DefaultListableBeanFactory;
+import com.example.springframe.beans.BeanDefinition;
+import com.example.springframe.beans.BeanReReference;
+import com.example.springframe.beans.PropertyValue;
+import com.example.springframe.beans.PropertyValues;
+import com.example.springframe.beans.support.DefaultListableBeanFactory;
+import com.example.springframe.service.UserService;
+import com.example.springframe.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -58,7 +57,7 @@ public class BeanFactoryTest {
          * 因此在applyPropertyValues() 方法中要对属性判空
          * 第5章对博客里没有判空 导致在测试对时候发生了NPE
          */
-        beanFactory.registryBeanDefinition("retryService", new BeanDefinition(RetryService.class));
+        beanFactory.registryBeanDefinition("retryService", new BeanDefinition(Object.class));
 
         PropertyValues propertyValues = new PropertyValues();
         PropertyValue userName = new PropertyValue("userName", "wenzeng");
