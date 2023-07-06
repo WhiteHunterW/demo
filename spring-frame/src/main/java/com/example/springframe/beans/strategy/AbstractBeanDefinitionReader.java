@@ -1,5 +1,6 @@
 package com.example.springframe.beans.strategy;
 
+import com.example.springframe.beans.config.BeanDefinitionRegistry;
 import com.example.springframe.core.io.DefaultResourceLoader;
 import com.example.springframe.core.io.ResourceLoader;
 

@@ -15,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
     private String userName;
 
+    private UserManager userManager;
+
     public UserServiceImpl() {
 
     }
@@ -31,7 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        log.info("test com.example.springframe.bean factory");
+        String userName = userManager.getUserName();
+        log.info("test com.example.springframe.bean factory. userName {}", userName);
         //userMapper.insert(user);
     }
 }

@@ -14,6 +14,7 @@ public interface Resource {
 
     /**
      * 获取输入流
+     * @throws IOException
      * @return
      */
     InputStream getInputStream() throws IOException;

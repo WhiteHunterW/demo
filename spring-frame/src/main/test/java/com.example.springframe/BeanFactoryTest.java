@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.springframe;
 
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;

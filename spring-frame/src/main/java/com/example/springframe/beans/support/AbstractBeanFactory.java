@@ -36,6 +36,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return createBean(beanName, beanDefinition, args);
     }
 
+    @Override
+    public <T> T getBeanOfType(String name, Class<T> requireType) {
+        return null;
+    }
+
     /**
      * 获取bean元数据
      *

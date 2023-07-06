@@ -4,9 +4,12 @@ import cn.hutool.core.text.CharSequenceUtil;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
+import com.example.springframe.beans.PropertyValues;
+import com.example.springframe.beans.config.BeanDefinitionRegistry;
 import com.example.springframe.core.io.Resource;
 import com.example.springframe.core.io.ResourceLoader;
 import com.example.springframe.exception.BizException;
+import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -24,6 +27,7 @@ import java.io.InputStream;
  * @author wenzeng
  * @date 2023/7/2
  */
+@Slf4j
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
@@ -41,6 +45,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 doLoadBeanDefinitions(inputStream);
             }
         } catch (IOException | ParserConfigurationException | SAXException | ClassNotFoundException e) {
+            log.error("loadBeanDefinitions -- load error ", e);
             throw new BizException("IOException parsing XML document from " + resource);
         }
     }
@@ -82,7 +87,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             Element bean = (Element) childrenNodes.item(i);
             String id = bean.getAttribute("id");
             String name = bean.getAttribute("name");
-            String className = bean.getAttribute("className");
+            String className = bean.getAttribute("class");
             // 获取Class
             Class<?> clazz = Class.forName(className);
             String beanName = CharSequenceUtil.isNotEmpty(id) ? id : name;
@@ -91,14 +96,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             }
 
             // 定义Bean
-            BeanDefinition beanDefinition = new BeanDefinition(clazz);
+            BeanDefinition beanDefinition = new BeanDefinition(clazz, new PropertyValues());
             // 读取配置的bean属性
-            for (int j = 0; i < bean.getChildNodes().getLength(); j++) {
+            for (int j = 0; j < bean.getChildNodes().getLength(); j++) {
                 // 判断元素
-                if (!(childrenNodes.item(j) instanceof Element) || !"property".equals(childrenNodes.item(j).getNodeName())) {
+                if (!(bean.getChildNodes().item(j) instanceof Element)
+                        || !"property".equals(bean.getChildNodes().item(j).getNodeName())) {
                     continue;
                 }
-                Element property = (Element) childrenNodes.item(j);
+                Element property = (Element) bean.getChildNodes().item(j);
                 String attrName = property.getAttribute("name");
                 String attrValue = property.getAttribute("value");
                 String attrRef = property.getAttribute("ref");
@@ -114,7 +120,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             }
 
             // 注册beanDefinition
-            beanDefinitionRegistry.registerBeanDefinition(beanName, beanDefinition);
+            beanDefinitionRegistry.registryBeanDefinition(beanName, beanDefinition);
         }
     }
 }

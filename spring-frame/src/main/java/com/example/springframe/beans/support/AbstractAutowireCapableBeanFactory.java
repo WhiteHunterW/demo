@@ -7,6 +7,7 @@ import com.example.springframe.beans.PropertyValues;
 import com.example.springframe.beans.strategy.CglibSubclassingInstantiationStrategy;
 import com.example.springframe.beans.strategy.InstantiationStrategy;
 import com.example.springframe.exception.BizException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -18,8 +19,8 @@ import java.lang.reflect.InvocationTargetException;
  * @author wenzeng
  * @date 2023/6/8
  */
-
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory{
+@Slf4j
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
     /**
      * 为什么是直接写死使用cglib这个策略？
@@ -35,7 +36,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             // 设置对象属性
             applyBeanPropertyValues(beanName, bean, beanDefinition);
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
-         throw new BizException("create com.example.springframe.bean error");
+            log.error("create bean error ", e);
+            throw new BizException("create com.example.springframe.bean error");
         }
         // 放入单例容器？
         addSingletonBean(beanName, bean);
@@ -54,7 +56,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             // 设置对象属性
             applyBeanPropertyValues(beanName, bean, beanDefinition);
         } catch (InvocationTargetException | InstantiationException
-                |IllegalAccessException | NoSuchMethodException | NoSuchFieldException e) {
+                | IllegalAccessException | NoSuchMethodException | NoSuchFieldException e) {
             throw new BizException("create bean error");
         }
         addSingletonBean(beanName, bean);
@@ -65,9 +67,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     protected Object createBeanInstance(String beanName, BeanDefinition beanDefinition, Object[] args) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         Constructor constructor = null;
         Class<?> cl = beanDefinition.getBeanClass();
-        Constructor<?> [] constructors = cl.getDeclaredConstructors();
+        Constructor<?>[] constructors = cl.getDeclaredConstructors();
         for (Constructor c : constructors) {
-            if(null != args && args.length == c.getParameterTypes().length){
+            if (null != args && args.length == c.getParameterTypes().length) {
                 constructor = c;
                 break;
             }
@@ -77,13 +79,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     /**
      * 设置对象属性
+     *
      * @param beanName
      * @param obj
      * @param beanDefinition
      */
     protected void applyBeanPropertyValues(String beanName, Object obj, BeanDefinition beanDefinition) throws IllegalAccessException, NoSuchFieldException {
         PropertyValues propertyValues = beanDefinition.getPropertyValues();
-        if(null == propertyValues) {
+        if (null == propertyValues) {
             return;
         }
         /*Field[] fields = obj.getClass().getDeclaredFields();
@@ -95,7 +98,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         for (PropertyValue pv : propertyValues.getPropertyValueList()) {
             String name = pv.getName();
             Object value = pv.getValue();
-            if(value instanceof BeanReReference) {
+            if (value instanceof BeanReReference) {
                 BeanReReference reReference = (BeanReReference) value;
                 value = getBean(reReference.getBeanName());
             }
