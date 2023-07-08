@@ -4,6 +4,7 @@ import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
 import com.example.springframe.beans.PropertyValues;
+import com.example.springframe.beans.proccessor.BeanPostProcessor;
 import com.example.springframe.beans.strategy.CglibSubclassingInstantiationStrategy;
 import com.example.springframe.beans.strategy.InstantiationStrategy;
 import com.example.springframe.exception.BizException;
@@ -21,6 +22,9 @@ import java.lang.reflect.InvocationTargetException;
  */
 @Slf4j
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+
+
+    private BeanPostProcessor postProcessor;
 
     /**
      * 为什么是直接写死使用cglib这个策略？
@@ -108,5 +112,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             field.setAccessible(true);
             field.set(obj, value);
         }
+    }
+
+
+    /**
+     * 实例化bean
+     * @param beanName
+     * @param bean
+     * @param beanDefinition
+     */
+    protected void initializationBean(String beanName, Object bean, BeanDefinition beanDefinition){
+        // 添加前置和后置处理器
     }
 }
