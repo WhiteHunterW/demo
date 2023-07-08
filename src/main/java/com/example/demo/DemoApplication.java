@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+/**
+ * @author wenzeng
+ */
 @SpringBootApplication
 @EnableAsync
 @EnableRetry

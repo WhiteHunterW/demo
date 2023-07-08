@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+
+    <bean id="userManager" class="com.example.springframe.service.UserManager"/>
+
+    <bean id="userServiceImpl" class="com.example.springframe.service.UserServiceImpl">
+        <property name="userManager" ref="userManager"/>
+        <property name="userName" value="test"/>
+    </bean>
+
+</beans>

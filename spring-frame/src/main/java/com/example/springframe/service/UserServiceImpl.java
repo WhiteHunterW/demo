@@ -1,6 +1,5 @@
-package com.example.demo.service;
+package com.example.springframe.service;
 
-import com.example.demo.data.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private RetryService retryService;
-
     private String userName;
+
+    private UserManager userManager;
 
     public UserServiceImpl() {
 
@@ -34,7 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        log.info("test com.example.springframe.bean factory");
+        String userName = userManager.getUserName();
+        log.info("test com.example.springframe.bean factory. userName {}", userName);
         //userMapper.insert(user);
     }
 }

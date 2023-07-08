@@ -1,6 +1,4 @@
-package com.example.demo.service;
-
-import com.example.demo.data.User;
+package com.example.springframe.service;
 
 /**
  * Function:
