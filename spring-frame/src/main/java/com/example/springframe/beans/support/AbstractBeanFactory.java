@@ -38,7 +38,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public <T> T getBeanOfType(String name, Class<T> requireType) {
-        return null;
+        return (T) getBean(name);
     }
 
     /**
