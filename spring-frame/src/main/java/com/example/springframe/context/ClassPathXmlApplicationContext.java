@@ -6,7 +6,7 @@ package com.example.springframe.context;
  * @author wenzeng
  * @date 2023/7/7
  */
-public abstract class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
+public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
 
     private String[] configLocations;
 

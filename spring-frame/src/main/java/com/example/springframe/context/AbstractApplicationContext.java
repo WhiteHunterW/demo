@@ -5,6 +5,7 @@ import com.example.springframe.beans.proccessor.BeanFactoryPostProcessor;
 import com.example.springframe.beans.proccessor.BeanPostProcessor;
 import com.example.springframe.core.io.DefaultResourceLoader;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +43,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     protected abstract ConfigurableListableBeanFactory getBeanFactory();
 
 
+    @Override
+    public void registerShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
+    }
+
+    @Override
+    public void close() {
+        getBeanFactory().destroySingletons();
+    }
+
+
+
     /**
      * 调用BeanFactory的前置处理器
      * 在Bean对象实例化之前对BeanDefinition修改
@@ -50,6 +63,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
      */
     private void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
         Map<String, BeanFactoryPostProcessor> beanFactoryBeansMap = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class);
+        if(null == beanFactoryBeansMap) {
+            return;
+        }
         for (BeanFactoryPostProcessor beanFactoryPostProcessor : beanFactoryBeansMap.values()) {
             beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
         }
@@ -62,10 +78,37 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
      */
     private void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
         Map<String, BeanPostProcessor> beanPostProcessorMap = beanFactory.getBeansOfType(BeanPostProcessor.class);
+        if(null == beanPostProcessorMap) {
+            return;
+        }
         for (BeanPostProcessor beanPostProcessor : beanPostProcessorMap.values()) {
             beanFactory.addBeanPostProcessor(beanPostProcessor);
         }
     }
 
 
+    @Override
+    public Object getBean(String beanName) {
+        return getBeanFactory().getBean(beanName);
+    }
+
+    @Override
+    public Object getBean(String beanName, Object... args) {
+        return getBeanFactory().getBean(beanName, args);
+    }
+
+    @Override
+    public <T> T getBeanOfType(String name, Class<T> requireType) {
+        return getBeanFactory().getBeanOfType(name, requireType);
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) {
+        return getBeanFactory().getBeansOfType(type);
+    }
+
+    @Override
+    public List<String> getBeanDefinitionNames() {
+        return getBeanFactory().getBeanDefinitionNames();
+    }
 }

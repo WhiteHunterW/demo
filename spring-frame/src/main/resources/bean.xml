@@ -2,7 +2,7 @@
 
 <beans>
 
-    <bean id="userManager" class="com.example.springframe.service.UserManager"/>
+    <bean id="userManager" class="com.example.springframe.service.UserManager" init-method="initDataMethod" destory-method="destroyDataMethod"/>
 
     <bean id="userServiceImpl" class="com.example.springframe.service.UserServiceImpl">
         <property name="userManager" ref="userManager"/>

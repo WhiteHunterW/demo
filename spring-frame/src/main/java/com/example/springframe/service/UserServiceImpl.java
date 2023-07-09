@@ -1,5 +1,7 @@
 package com.example.springframe.service;
 
+import com.example.springframe.beans.support.DisposableBean;
+import com.example.springframe.beans.support.InitializingBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService , InitializingBean, DisposableBean {
 
     private String userName;
 
@@ -87,5 +89,15 @@ public class UserServiceImpl implements UserService {
                 .append("公司: ")
                 .append(company);
         return builder.toString();
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("执行 UserServiceImpl#destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println("执行 UserServiceImpl#afterPropertiesSet");
     }
 }

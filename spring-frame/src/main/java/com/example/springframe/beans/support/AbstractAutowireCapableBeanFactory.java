@@ -1,5 +1,6 @@
 package com.example.springframe.beans.support;
 
+import cn.hutool.core.util.StrUtil;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Function:
@@ -53,7 +55,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
             log.error("create bean error ", e);
             throw new BizException("create com.example.springframe.bean error");
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
+        registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
         // 放入单例容器？
         addSingletonBean(beanName, bean);
         return bean;
@@ -75,6 +82,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 | IllegalAccessException | NoSuchMethodException | NoSuchFieldException e) {
             throw new BizException("create bean error");
         }
+        registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
         addSingletonBean(beanName, bean);
         return bean;
     }
@@ -132,12 +140,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param bean
      * @param beanDefinition
      */
-    protected Object initializationBean(String beanName, Object bean, BeanDefinition beanDefinition){
+    protected Object initializationBean(String beanName, Object bean, BeanDefinition beanDefinition) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         // 添加前置和后置处理器
         // 1.执行BeanPostProcessor before
         Object wrapperBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
-        // TODO
+        // 调用init-method 执行初始化
         invokeInitMethods(beanName, wrapperBean, beanDefinition);
 
         // 2.执行BeanPostProcessor after
@@ -146,8 +154,36 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
 
-    private void invokeInitMethods(String beanName, Object wrapperBean, BeanDefinition beanDefinition) {
+    private void invokeInitMethods(String beanName, Object wrapperBean, BeanDefinition beanDefinition) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        // 1. 实现接口InitializingBean
+        if(wrapperBean instanceof  InitializingBean) {
+            /*
+             *在bean对象执行完属性设置之后，需要增加比如容器获取等逻辑的可以让类实现InitializingBean接口 重写afterPropertiesSet方法
+             * 比如使用工厂类去获取某个类下的所有bean对象 放入map?
+             */
+            ((InitializingBean) wrapperBean).afterPropertiesSet();
+        }
 
+        // 2.配置细腻 init-method
+        String initMethodName = beanDefinition.getInitMethodName();
+        if(StrUtil.isNotEmpty(initMethodName)) {
+            // 判断配置的初始化方法名跟类里实际定义的方法名是否是同一个
+            Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
+            if(null == initMethod) {
+                throw new BizException("could not find an init method named '" + initMethod + "' on bean with name '"+beanName+"'");
+            }
+            // 这是在提前调用init-method方法？？ 可以怎么应用呢？
+            initMethod.invoke(wrapperBean);
+        }
+
+
+    }
+
+
+    protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition definition)  {
+        if(bean instanceof DisposableBean || StrUtil.isNotEmpty(definition.getDestroyMethodName())) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, definition));
+        }
     }
 
     @Override

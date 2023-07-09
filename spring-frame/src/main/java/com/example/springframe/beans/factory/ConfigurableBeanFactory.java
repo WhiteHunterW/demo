@@ -11,4 +11,10 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory{
     String SCOPE_SINGLETON = "singleton";
 
     String SCOPE_PROTOTYPE = "prototype";
+
+
+    /**
+     * 销毁单例bean
+     */
+    void destroySingletons();
 }

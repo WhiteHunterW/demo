@@ -15,6 +15,13 @@ public class BeanDefinition {
 
     private PropertyValues propertyValues;
 
+    /**
+     * 配置在xml文件里的？
+     */
+    private String initMethodName;
+
+    private String destroyMethodName;
+
     public BeanDefinition(Class bean) {
         this.beanClass = bean;
     }
@@ -30,5 +37,21 @@ public class BeanDefinition {
 
     public PropertyValues getPropertyValues() {
         return propertyValues;
+    }
+
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
     }
 }
