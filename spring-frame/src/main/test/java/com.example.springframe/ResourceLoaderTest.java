@@ -4,6 +4,8 @@ import com.example.springframe.beans.strategy.XmlBeanDefinitionReader;
 import com.example.springframe.beans.support.DefaultListableBeanFactory;
 import com.example.springframe.core.io.DefaultResourceLoader;
 import com.example.springframe.core.io.Resource;
+import com.example.springframe.service.MyBeanFactoryPostProcessor;
+import com.example.springframe.service.MyBeanPostProcessor;
 import com.example.springframe.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.util.io.IOUtil;
@@ -48,5 +50,28 @@ public class ResourceLoaderTest {
 
         UserServiceImpl userService = (UserServiceImpl) beanFactory.getBean("userServiceImpl");
         userService.insertUser(null);
+    }
+
+    @Test
+    public void testBeanFactoryContext() {
+        // 创建一个beanfactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        // 加载配置文件
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+        xmlBeanDefinitionReader.loadBeanDefinitions("classpath:bean.xml");
+
+        // 注册完BeanDefinition之后对BeanDefinition进行修改
+        MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
+        beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
+
+        // 添加bean对象的处理器 实例化bean对象的过程中执行
+        MyBeanPostProcessor postProcessor = new MyBeanPostProcessor();
+        beanFactory.addBeanPostProcessor(postProcessor);
+
+        // 实例化bean
+        UserServiceImpl userService = (UserServiceImpl) beanFactory.getBean("userServiceImpl");
+        System.out.println(userService.getUserInfo());
+
     }
 }

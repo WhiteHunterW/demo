@@ -42,4 +42,11 @@ public interface BeanDefinitionReader {
      */
     void loadBeanDefinitions(String location);
 
+
+    /**
+     * 多资源路径解析
+     * @param locations
+     */
+    void loadBeanDefinitions(String...locations);
+
 }

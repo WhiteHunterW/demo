@@ -10,6 +10,7 @@ public interface BeanFactory {
 
     /**
      * 获取bean实例对象
+     *
      * @param beanName bean名称
      * @return
      */
@@ -17,14 +18,16 @@ public interface BeanFactory {
 
     /**
      * 实例化有参的bean对象
+     *
      * @param beanName
      * @param args
      * @return
      */
-    Object getBean(String beanName, Object ... args);
+    Object getBean(String beanName, Object... args);
 
     /**
      * 根据类型获取bean
+     *
      * @param name
      * @param requireType
      * @param <T>

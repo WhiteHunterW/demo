@@ -10,14 +10,14 @@ import com.example.springframe.core.io.ResourceLoader;
  * @author wenzeng
  * @date 2023/7/2
  */
-public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader{
+public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader {
 
     private BeanDefinitionRegistry registry;
 
     private ResourceLoader resourceLoader;
 
     public AbstractBeanDefinitionReader(BeanDefinitionRegistry registry) {
-       this(registry, new DefaultResourceLoader());
+        this(registry, new DefaultResourceLoader());
     }
 
     public AbstractBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {

@@ -1,5 +1,8 @@
 package com.example.springframe.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Function:
  *
@@ -8,9 +11,17 @@ package com.example.springframe.service;
  */
 public class UserManager {
 
+    private static Map<String, String> STRING_MAP = new HashMap<>();
 
-    public String getUserName() {
-        return "wenzeng";
+    static {
+        STRING_MAP.put("1", "test1");
+        STRING_MAP.put("2", "test2");
+        STRING_MAP.put("3", "test3");
+    }
+
+
+    public String getUserName(String userId) {
+        return STRING_MAP.get(userId);
     }
 
 }

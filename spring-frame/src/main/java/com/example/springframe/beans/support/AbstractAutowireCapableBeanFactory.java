@@ -4,6 +4,7 @@ import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
 import com.example.springframe.beans.PropertyValues;
+import com.example.springframe.beans.factory.AutowireCapableBeanFactory;
 import com.example.springframe.beans.proccessor.BeanPostProcessor;
 import com.example.springframe.beans.strategy.CglibSubclassingInstantiationStrategy;
 import com.example.springframe.beans.strategy.InstantiationStrategy;
@@ -21,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
  * @date 2023/6/8
  */
 @Slf4j
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
 
     private BeanPostProcessor postProcessor;
@@ -32,6 +33,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      */
     private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
 
+
+    public InstantiationStrategy getInstantiationStrategy() {
+        return instantiationStrategy;
+    }
+
+    public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
+        this.instantiationStrategy = instantiationStrategy;
+    }
+
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition) {
         Object bean = null;
@@ -39,6 +49,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             bean = beanDefinition.getBeanClass().newInstance();
             // 设置对象属性
             applyBeanPropertyValues(beanName, bean, beanDefinition);
+            bean = initializationBean(beanName, bean, beanDefinition);
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
             log.error("create bean error ", e);
             throw new BizException("create com.example.springframe.bean error");
@@ -59,6 +70,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             bean = createBeanInstance(beanName, beanDefinition, args);
             // 设置对象属性
             applyBeanPropertyValues(beanName, bean, beanDefinition);
+            bean = initializationBean(beanName, bean, beanDefinition);
         } catch (InvocationTargetException | InstantiationException
                 | IllegalAccessException | NoSuchMethodException | NoSuchFieldException e) {
             throw new BizException("create bean error");
@@ -66,7 +78,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         addSingletonBean(beanName, bean);
         return bean;
     }
-
 
     protected Object createBeanInstance(String beanName, BeanDefinition beanDefinition, Object[] args) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         Constructor constructor = null;
@@ -121,7 +132,48 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param bean
      * @param beanDefinition
      */
-    protected void initializationBean(String beanName, Object bean, BeanDefinition beanDefinition){
+    protected Object initializationBean(String beanName, Object bean, BeanDefinition beanDefinition){
         // 添加前置和后置处理器
+        // 1.执行BeanPostProcessor before
+        Object wrapperBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
+
+        // TODO
+        invokeInitMethods(beanName, wrapperBean, beanDefinition);
+
+        // 2.执行BeanPostProcessor after
+        wrapperBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
+        return wrapperBean;
+    }
+
+
+    private void invokeInitMethods(String beanName, Object wrapperBean, BeanDefinition beanDefinition) {
+
+    }
+
+    @Override
+    public Object applyBeanPostProcessorsAfterInitialization(Object bean, String beanName) {
+        Object result = bean;
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            Object current = beanPostProcessor.postProcessAfterInitialization(result, beanName);
+            if(null == current) {
+                return result;
+            }
+            result = current;
+        }
+        return result;
+    }
+
+    @Override
+    public Object applyBeanPostProcessorsBeforeInitialization(Object bean, String beanName) {
+        Object result = bean;
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            Object current = beanPostProcessor.postProcessBeforeInitialization(result, beanName);
+           if(null == current) {
+               // 只要有一个处理器处理的结果为空就直接返回？？？？
+               return result;
+           }
+           result = current;
+        }
+        return result;
     }
 }

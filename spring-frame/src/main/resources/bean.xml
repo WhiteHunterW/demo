@@ -7,6 +7,12 @@
     <bean id="userServiceImpl" class="com.example.springframe.service.UserServiceImpl">
         <property name="userManager" ref="userManager"/>
         <property name="userName" value="test"/>
+        <property name="userId" value="2"/>
+        <property name="location" value="成都"/>
+        <property name="company" value="洒水公司"/>
     </bean>
+
+    <bean class="com.example.springframe.service.MyBeanPostProcessor"/>
+    <bean class="com.example.springframe.service.MyBeanFactoryPostProcessor"/>
 
 </beans>

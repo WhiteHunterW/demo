@@ -9,10 +9,11 @@ import java.util.Map;
  * @author wenzeng
  * @date 2023/7/2
  */
-public interface ListableBeanFactory extends BeanFactory{
+public interface ListableBeanFactory extends BeanFactory {
 
     /**
      * 根据类型获取beans
+     *
      * @param type
      * @param <T>
      * @return
@@ -21,6 +22,7 @@ public interface ListableBeanFactory extends BeanFactory{
 
     /**
      * 获取注册的所有bean名称
+     *
      * @return
      */
     List<String> getBeanDefinitionNames();

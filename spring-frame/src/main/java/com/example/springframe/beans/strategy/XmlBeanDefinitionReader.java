@@ -64,6 +64,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
+    @Override
+    public void loadBeanDefinitions(String... locations) {
+        for(String location : locations) {
+            loadBeanDefinitions(location);
+        }
+    }
 
     /**
      * 解析资源
