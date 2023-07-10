@@ -1,7 +1,10 @@
 package com.example.springframe.beans.support;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.springframe.beans.BeanClassLoaderAware;
 import com.example.springframe.beans.BeanDefinition;
+import com.example.springframe.beans.BeanFactoryAware;
+import com.example.springframe.beans.BeanNameAware;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
 import com.example.springframe.beans.PropertyValues;
@@ -141,7 +144,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param beanDefinition
      */
     protected Object initializationBean(String beanName, Object bean, BeanDefinition beanDefinition) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        // 添加前置和后置处理器
+        // 先执行容器相关的标识接口 关于BeanFactory的几个aware实现类在initBean方法里直接判断 获取容器相关的信息
+        // ApplicationContextAware 相关的子接口会在BeanPostProcess执行的过程判断 因为是两种容器？
+        // 对ApplicationContextAware 执行是放在前置处理器里的
+        if(bean instanceof BeanFactoryAware) {
+            ((BeanFactoryAware) bean).setBeanFactory(this);
+        }
+        if(bean instanceof BeanNameAware) {
+            ((BeanNameAware) bean).setBeanName(beanName);
+        }
+        if(bean instanceof BeanClassLoaderAware) {
+            ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+        }
+
         // 1.执行BeanPostProcessor before
         Object wrapperBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 

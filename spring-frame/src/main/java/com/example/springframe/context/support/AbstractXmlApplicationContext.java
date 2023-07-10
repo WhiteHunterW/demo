@@ -1,4 +1,4 @@
-package com.example.springframe.context;
+package com.example.springframe.context.support;
 
 import com.example.springframe.beans.strategy.XmlBeanDefinitionReader;
 import com.example.springframe.beans.support.DefaultListableBeanFactory;
@@ -9,7 +9,7 @@ import com.example.springframe.beans.support.DefaultListableBeanFactory;
  * @author wenzeng
  * @date 2023/7/7
  */
-public abstract class AbstractXmlApplicationContext extends AbstractRefreshableApplicationContext{
+public abstract class AbstractXmlApplicationContext extends AbstractRefreshableApplicationContext {
 
     @Override
     protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {

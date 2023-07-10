@@ -2,7 +2,7 @@ package com.example.springframe;
 
 import com.example.springframe.beans.strategy.XmlBeanDefinitionReader;
 import com.example.springframe.beans.support.DefaultListableBeanFactory;
-import com.example.springframe.context.ClassPathXmlApplicationContext;
+import com.example.springframe.context.support.ClassPathXmlApplicationContext;
 import com.example.springframe.core.io.DefaultResourceLoader;
 import com.example.springframe.core.io.Resource;
 import com.example.springframe.service.MyBeanFactoryPostProcessor;
@@ -87,5 +87,20 @@ public class ResourceLoaderTest {
         UserServiceImpl userService = (UserServiceImpl) context.getBean("userServiceImpl");
         String result = userService.getUserInfo();
         System.out.println(result);
+    }
+
+    @Test
+    public void testAware() {
+        // 1.初始化BeanFactory
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:bean.xml");
+        context.registerShutdownHook();
+
+        // 2. 获取bean对象的调用方法
+        UserServiceImpl userService = (UserServiceImpl) context.getBean("userServiceImpl");
+        String result = userService.getUserInfo();
+        System.out.println(result);
+        System.out.println("applicationContext is "+userService.getApplicationContextAware());
+        System.out.println("beanFactory is " + userService.getBeanFactory());
+
     }
 }

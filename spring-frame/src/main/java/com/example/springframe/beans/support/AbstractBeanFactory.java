@@ -2,6 +2,7 @@ package com.example.springframe.beans.support;
 
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.factory.BeanFactory;
+import org.springframework.util.ClassUtils;
 
 import java.util.Objects;
 
@@ -13,6 +14,12 @@ import java.util.Objects;
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
+
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
+
+    public ClassLoader getBeanClassLoader() {
+        return beanClassLoader;
+    }
 
     @Override
     public Object getBean(String beanName) {

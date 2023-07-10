@@ -1,8 +1,9 @@
-package com.example.springframe.context;
+package com.example.springframe.context.support;
 
 import com.example.springframe.beans.factory.ConfigurableListableBeanFactory;
 import com.example.springframe.beans.proccessor.BeanFactoryPostProcessor;
 import com.example.springframe.beans.proccessor.BeanPostProcessor;
+import com.example.springframe.context.ConfigurableApplicationContext;
 import com.example.springframe.core.io.DefaultResourceLoader;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         refreshBeanFactory();
         // 2.获取BeanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
-        // 3.bean实例化前执行BeanFactoryPostProcessor
+        // 3.添加ApplicationAwareProcessor, 让继承ApplicationAware的Bean对象都能感知所属的ApplicationContext
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+        // 4.bean实例化前执行BeanFactoryPostProcessor
         invokeBeanFactoryPostProcessors(beanFactory);
-        // 4.bean实例化前执行BeanPostProcessor
+        // 5.bean实例化前执行BeanPostProcessor
         registerBeanPostProcessors(beanFactory);
-        // 5.提前实例化单例Bean对象
-
+        // 6.提前实例化单例Bean对象
+        beanFactory.preInstantiateSingletons();
     }
 
     /**

@@ -1,7 +1,11 @@
 package com.example.springframe.service;
 
-import com.example.springframe.beans.support.DisposableBean;
-import com.example.springframe.beans.support.InitializingBean;
+import com.example.springframe.beans.BeanClassLoaderAware;
+import com.example.springframe.beans.BeanFactoryAware;
+import com.example.springframe.beans.BeanNameAware;
+import com.example.springframe.beans.factory.BeanFactory;
+import com.example.springframe.context.ApplicationContext;
+import com.example.springframe.context.ApplicationContextAware;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService , InitializingBean, DisposableBean {
+public class UserServiceImpl implements UserService, BeanNameAware, BeanFactoryAware, BeanClassLoaderAware, ApplicationContextAware {
 
     private String userName;
 
@@ -24,6 +28,10 @@ public class UserServiceImpl implements UserService , InitializingBean, Disposab
     private String company;
 
     private UserManager userManager;
+
+    private ApplicationContext applicationContextAware;
+
+    private BeanFactory beanFactory;
 
     public UserServiceImpl() {
 
@@ -66,8 +74,16 @@ public class UserServiceImpl implements UserService , InitializingBean, Disposab
         this.userName = userName;
     }
 
+    public ApplicationContext getApplicationContextAware() {
+        return applicationContextAware;
+    }
 
-    /*public UserServiceImpl(@Autowired RetryService retryService) {
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+
+/*public UserServiceImpl(@Autowired RetryService retryService) {
         this.retryService = retryService;
     }*/
 
@@ -91,7 +107,7 @@ public class UserServiceImpl implements UserService , InitializingBean, Disposab
         return builder.toString();
     }
 
-    @Override
+   /* @Override
     public void destroy() {
         System.out.println("执行 UserServiceImpl#destroy");
     }
@@ -99,5 +115,25 @@ public class UserServiceImpl implements UserService , InitializingBean, Disposab
     @Override
     public void afterPropertiesSet() {
         System.out.println("执行 UserServiceImpl#afterPropertiesSet");
+    }*/
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("classLoader is "+classLoader);
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setBeanName(String beanName) {
+        System.out.println("beanName is "+beanName);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContextAware = applicationContext;
     }
 }
