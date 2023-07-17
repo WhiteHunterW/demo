@@ -1,6 +1,7 @@
 package com.example.springframe.beans.strategy;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
@@ -99,6 +100,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String initMethodName = bean.getAttribute("init-method");
             String destroyMethodName = bean.getAttribute("destroy-method");
 
+            // 增加bean作用范围解析
+            String scope = bean.getAttribute("scope");
+
             // 获取Class
             Class<?> clazz = Class.forName(className);
             String beanName = CharSequenceUtil.isNotEmpty(id) ? id : name;
@@ -110,6 +114,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             BeanDefinition beanDefinition = new BeanDefinition(clazz, new PropertyValues());
             beanDefinition.setDestroyMethodName(destroyMethodName);
             beanDefinition.setInitMethodName(initMethodName);
+            if(StrUtil.isNotEmpty(scope)) {
+                beanDefinition.setScope(scope);
+            }
             // 读取配置的bean属性
             for (int j = 0; j < bean.getChildNodes().getLength(); j++) {
                 // 判断元素

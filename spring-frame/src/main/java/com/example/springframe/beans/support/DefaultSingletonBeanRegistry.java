@@ -22,6 +22,8 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry, Conf
 
     private Map<String, DisposableBean> disposableBeanMap = new HashMap<>();
 
+    private Object NULL_OBJECT;
+
     @Override
     public Object getSingletonBean(String beanName) {
         return singletonBeanMap.get(beanName);

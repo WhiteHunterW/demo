@@ -55,7 +55,7 @@ public class ResourceLoaderTest {
 
     @Test
     public void testBeanFactoryContext() {
-        // 创建一个beanfactory
+        // 创建一个beanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 加载配置文件
