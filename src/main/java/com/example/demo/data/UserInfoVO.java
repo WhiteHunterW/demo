@@ -9,9 +9,13 @@ import lombok.Data;
 @Data
 public class UserInfoVO {
 
-    private String name;
+    private String UserName;
 
     private String gender;
 
-    private Long created;
+    private String created;
+
+    private String address;
+
+    private String phone;
 }

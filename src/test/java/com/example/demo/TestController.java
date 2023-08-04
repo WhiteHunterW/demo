@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * @author xingche
+ * @author wenzeng
  * @date 2022/1/16
  */
 @Slf4j
@@ -25,7 +25,7 @@ class TestController {
         user.setCreated(new Date());
         final UserInfoVO userInfoVO = ConvertUtil.convert(user, UserInfoVO.class, (from, target) -> {
             target.setGender(Objects.equals(from.getGender(), 1) ? "女" : "男");
-            target.setCreated(Objects.nonNull(from.getCreated()) ? from.getCreated().getTime() : null);
+            //target.setCreated(Objects.nonNull(from.getCreated()) ? from.getCreated().getTime() : null);
         });
         log.info("userInfo {}", userInfoVO);
     }

@@ -1,8 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.assembler.UserAssembler;
 import com.example.demo.data.User;
+import com.example.demo.data.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 /**
  * Function:
@@ -17,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private RetryService retryService;
 
     private String userName;
+
+    private UserAssembler userAssembler = UserAssembler.INSTANCE;
 
     public UserServiceImpl() {
 
@@ -34,7 +40,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        log.info("test com.example.springframe.bean factory");
-        //userMapper.insert(user);
+        UserInfoVO userInfoVO = userAssembler.userToVO(user);
     }
 }
