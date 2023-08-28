@@ -1,10 +1,10 @@
 package com.example.springframe.beans.support;
 
+import com.example.common.BizException;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.config.BeanDefinitionRegistry;
 import com.example.springframe.beans.factory.ConfigurableListableBeanFactory;
 import com.example.springframe.beans.proccessor.BeanPostProcessor;
-import com.example.springframe.exception.BizException;
 
 import java.util.ArrayList;
 import java.util.Collection;

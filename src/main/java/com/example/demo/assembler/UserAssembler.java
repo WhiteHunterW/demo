@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * Function:
  *
@@ -34,5 +36,12 @@ public interface UserAssembler {
      * @return
      */
     UserInfoVO turnToUser(User user, UserDetail detail);
+
+    /**
+     * convert to user list
+     * @param userList
+     * @return
+     */
+    List<UserInfoVO> convertToUserList(List<User> userList);
 
 }

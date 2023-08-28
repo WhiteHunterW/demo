@@ -1,18 +1,14 @@
 package com.example.springframe.context.event;
 
-import cn.hutool.core.util.ClassUtil;
+import com.example.common.BizException;
 import com.example.springframe.beans.BeanFactoryAware;
 import com.example.springframe.beans.factory.BeanFactory;
 import com.example.springframe.context.ApplicationEvent;
 import com.example.springframe.context.ApplicationListener;
-import com.example.springframe.exception.BizException;
-import org.springframework.cglib.core.TypeUtils;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.Proxy;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;

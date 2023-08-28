@@ -1,6 +1,7 @@
 package com.example.springframe.beans.support;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.common.BizException;
 import com.example.springframe.beans.BeanClassLoaderAware;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanFactoryAware;
@@ -12,7 +13,6 @@ import com.example.springframe.beans.factory.AutowireCapableBeanFactory;
 import com.example.springframe.beans.proccessor.BeanPostProcessor;
 import com.example.springframe.beans.strategy.CglibSubclassingInstantiationStrategy;
 import com.example.springframe.beans.strategy.InstantiationStrategy;
-import com.example.springframe.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;

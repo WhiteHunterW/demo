@@ -1,4 +1,4 @@
-package com.example.springframe.exception;
+package com.example.common;
 
 /**
  * Function:

@@ -1,8 +1,8 @@
 package com.example.springframe.beans.support;
 
+import com.example.common.BizException;
 import com.example.springframe.beans.config.SingletonBeanRegistry;
 import com.example.springframe.beans.factory.ConfigurableBeanFactory;
-import com.example.springframe.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationTargetException;

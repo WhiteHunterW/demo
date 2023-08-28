@@ -2,6 +2,7 @@ package com.example.springframe.beans.strategy;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
+import com.example.common.BizException;
 import com.example.springframe.beans.BeanDefinition;
 import com.example.springframe.beans.BeanReReference;
 import com.example.springframe.beans.PropertyValue;
@@ -9,7 +10,6 @@ import com.example.springframe.beans.PropertyValues;
 import com.example.springframe.beans.config.BeanDefinitionRegistry;
 import com.example.springframe.core.io.Resource;
 import com.example.springframe.core.io.ResourceLoader;
-import com.example.springframe.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
