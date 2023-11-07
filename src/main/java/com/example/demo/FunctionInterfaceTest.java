@@ -1,20 +1,23 @@
 package com.example.demo;
 
 
-import com.google.common.collect.Lists;
+import com.example.demo.data.User;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.StringJoiner;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 /**
  * @author w.z
  * @date 2022/1/15
@@ -27,7 +30,7 @@ public class  FunctionInterfaceTest<T> implements Predicate<T> {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        FileOutputStream outputStream = null;
+        /*FileOutputStream outputStream = null;
         List<String> arr = Lists.newArrayList("xingche", "dingtee");
         try {
             outputStream = new FileOutputStream("/Users/wenzeng/Desktop/wz/workspace/xhiteam/demo/src/main/resources/user.json", true);
@@ -40,10 +43,15 @@ public class  FunctionInterfaceTest<T> implements Predicate<T> {
             if(outputStream != null) {
                 outputStream.close();
             }
-        }
-        
-        
-        
+        }*/
+
+        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1696780800, 0, ZoneOffset.of("+8"));
+        String timeStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        System.out.println(timeStr);
+
+        List<User> collection = new ArrayList<>();
+        Map<String, Integer> userMap = collection.stream().collect(Collectors.toMap(User::getName, User::getCount));
+        System.out.println(userMap);
     }
 
     public static void predicate(){

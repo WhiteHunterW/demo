@@ -1,7 +1,9 @@
 package com.example.demo.data;
 
-import com.alibaba.excel.annotation.ExcelProperty;
+import com.example.demo.annotation.FieldProperty;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
  * Function:
@@ -12,9 +14,15 @@ import lombok.Data;
 @Data
 public class StatisticsModel {
 
-    @ExcelProperty(value = "工单数")
+    @FieldProperty(sort = 4)
     private Integer workOrderCount;
 
-    @ExcelProperty(value = "点位数")
+    @FieldProperty(sort = 2)
     private Integer pointPositionCount;
+
+    @FieldProperty(sort = 3)
+    private BigDecimal decimal;
+
+    @FieldProperty(sort = 1)
+    private String str;
 }

@@ -2,11 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.assembler.UserAssembler;
 import com.example.demo.data.User;
-import com.example.demo.data.UserInfoVO;
+import com.example.demo.event.UserChangeEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
+import javax.annotation.Resource;
 
 /**
  * Function:
@@ -17,6 +18,9 @@ import javax.inject.Inject;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Resource
+    private ApplicationEventPublisher applicationEventPublisher;
 
     private RetryService retryService;
 
@@ -40,6 +44,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        UserInfoVO userInfoVO = userAssembler.userToVO(user);
+        //UserInfoVO userInfoVO = userAssembler.userToVO(user);
+        UserChangeEvent userChangeEvent = new UserChangeEvent();
+        userChangeEvent.setUserId(String.valueOf(Math.random()));
+        userChangeEvent.setUserName("test");
+        userChangeEvent.setOperatorName("test");
+        applicationEventPublisher.publishEvent(userChangeEvent);
     }
 }
