@@ -24,6 +24,12 @@ public @interface FieldProperty {
     String name() default "";
 
     /**
+     * 指标名 映射到目标对象的字段名
+     * @return
+     */
+    String[] indexName() default "";
+
+    /**
      * 排序
      * @return
      */

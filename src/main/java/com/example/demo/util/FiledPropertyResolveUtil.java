@@ -5,15 +5,14 @@ import com.example.common.BizException;
 import com.example.demo.annotation.FieldProperty;
 import com.example.demo.data.StatisticsModel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -70,6 +69,77 @@ public class FiledPropertyResolveUtil {
             result.add(value);
         });
         return result;
+    }
+
+    /**
+     * 解析注解 获取字段排序map
+     * 传入indexName为空时 对整个类中加了注解的字段排序
+     * 传入indexName不为空时，对类中加了注解且注解indexName不为空且 indexName = 'All' 或 等于传入值的字段排序
+     *
+     * @param tClass
+     * @param <T>
+     * @return
+     */
+    public static <T> Map<Integer, Field> resolvedFiledProperty(Class<T> tClass, String indexName) {
+        Field[] fields = tClass.getDeclaredFields();
+        Map<Integer, Field> sortFieldMap = new HashMap<>(16);
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(FieldProperty.class)) {
+                FieldProperty property = field.getAnnotation(FieldProperty.class);
+                List<String> indexNameList = Arrays.asList(property.indexName());
+                if (StringUtils.isEmpty(indexName) && CollectionUtils.isNotEmpty(indexNameList)) {
+                    if (!indexNameList.contains(indexName) && !indexNameList.contains("All")) {
+                        continue;
+                    }
+                }
+                int sort = property.sort();
+                if (sort > 0) {
+                    if (sortFieldMap.containsKey(sort)) {
+                        log.error("字段 {} sort 值 {} 重复", field.getName(), sort);
+                        throw new BizException(field.getName() + "的顺序" + "【" + property.sort() + "】" + " 重复");
+                    }
+                    sortFieldMap.put(sort, field);
+                }
+            }
+        }
+        return sortFieldMap;
+    }
+
+
+    /**
+     * 返回分组排序的字段map
+     *
+     * @param tClass
+     * @param <T>
+     * @return
+     */
+    public static <T> Map<String, Map<Integer, Field>> resolvedFieldByGroup(Class<T> tClass) {
+        Map<String, Map<Integer, Field>> resultMap = new HashMap<>(16);
+        Field[] fields = tClass.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(FieldProperty.class)) {
+                FieldProperty property = field.getAnnotation(FieldProperty.class);
+                String[] indexNameList = property.indexName();
+                if (indexNameList == null || indexNameList.length == 0) {
+                    continue;
+                }
+                String indexName = indexNameList[0];
+                Map<Integer, Field> sortFieldMap = resultMap.get(indexName);
+                if (MapUtils.isEmpty(sortFieldMap)) {
+                    sortFieldMap = new HashMap<>(16);
+                }
+                int sort = property.sort();
+                if (sort > 0) {
+                    if (sortFieldMap.containsKey(sort)) {
+                        log.error("字段 {} sort 值 {} 重复", field.getName(), sort);
+                        throw new BizException(field.getName() + "的顺序" + "【" + property.sort() + "】" + " 重复");
+                    }
+                    sortFieldMap.put(sort, field);
+                }
+                resultMap.put(indexName, sortFieldMap);
+            }
+        }
+        return resultMap;
     }
 
     public static void main(String[] args) {
