@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ InstanceRemainPercentageMapper.xml
+  ~ Copyright 2021 Qunhe Tech, all rights reserved.
+  ~ Qunhe PROPRIETARY/CONFIDENTIAL, any form of usage is subject to approval.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="resultMap" type="com.example.data.User">
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="gender" jdbcType="int" column="gender"/>
+        <result property="count" jdbcType="int" column="count"/>
+        <result property="created" jdbcType="TIMESTAMP" column="created"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.data.User">
+        insert into user values (#{user.name},#{user.gender},#{user.created},#{user.count})
+    </insert>
+</mapper>
