@@ -8,7 +8,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://111.230.46.50:3306/mysql?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://111.230.46.50:3306/wz_test?useUnicode=true&serverTimezone=Asia/Shanghai
     username: 'root'
     password: '@#45672gd'
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,3 +23,5 @@ kafka:
   topic:
     test-topic: 'test1'
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

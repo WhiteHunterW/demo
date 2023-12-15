@@ -2,6 +2,7 @@ package com.example.biz.mapper;
 
 
 import com.example.biz.data.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Function:
@@ -11,5 +12,5 @@ import com.example.biz.data.User;
  */
 public interface UserMapper {
 
-    int insert(User user);
+    int insert(@Param("user") User user);
 }

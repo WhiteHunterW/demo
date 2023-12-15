@@ -6,6 +6,8 @@
     <modules>
         <module>spring-frame</module>
         <module>biz</module>
+        <module>dao</module>
+        <module>common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -30,19 +32,19 @@
 
 
 
-            <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter &ndash;&gt;-->
-            <!--        <dependency>-->
-            <!--            <groupId>org.mybatis.spring.boot</groupId>-->
-            <!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--            <version>2.0.1</version>-->
-            <!--        </dependency>-->
+                    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter &ndash;&gt;
+                    <dependency>
+                        <groupId>org.mybatis.spring.boot</groupId>
+                        <artifactId>mybatis-spring-boot-starter</artifactId>
+                        <version>2.0.1</version>
+                    </dependency>
 
-            <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis-spring &ndash;&gt;-->
-            <!--        <dependency>-->
-            <!--            <groupId>org.mybatis</groupId>-->
-            <!--            <artifactId>mybatis-spring</artifactId>-->
-            <!--            <version>2.0.2</version>-->
-            <!--        </dependency>-->
+                    &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis-spring &ndash;&gt;
+                    <dependency>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis-spring</artifactId>
+                        <version>2.0.2</version>
+                    </dependency>-->
 
             <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
             <!--<dependency>
