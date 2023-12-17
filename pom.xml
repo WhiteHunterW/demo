@@ -25,72 +25,28 @@
         <spring-retry.version>xingche-SNAPSHOT</spring-retry.version>
         <log4j.version>1.2.17</log4j.version>
         <easyexcel.version>3.2.1</easyexcel.version>
+        <lombok.version>1.18.28</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
 
-
-
-
-                    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter &ndash;&gt;
-                    <dependency>
-                        <groupId>org.mybatis.spring.boot</groupId>
-                        <artifactId>mybatis-spring-boot-starter</artifactId>
-                        <version>2.0.1</version>
-                    </dependency>
-
-                    &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis-spring &ndash;&gt;
-                    <dependency>
-                        <groupId>org.mybatis</groupId>
-                        <artifactId>mybatis-spring</artifactId>
-                        <version>2.0.2</version>
-                    </dependency>-->
-
-            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
-            <!--<dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-                <version>3.0.5</version>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
-            &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-ribbon &ndash;&gt;
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                <version>2.2.4.RELEASE</version>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
             </dependency>
-
-            &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-feign &ndash;&gt;
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-feign</artifactId>
-                <version>1.4.3.RELEASE</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-autoconfigure</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>-->
 
         </dependencies>
     </dependencyManagement>
 
-    <build>
+    <!--<build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.4.RELEASE</version>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -99,6 +55,6 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>

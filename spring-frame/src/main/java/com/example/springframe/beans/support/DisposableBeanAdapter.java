@@ -1,9 +1,8 @@
 package com.example.springframe.beans.support;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.common.BizException;
 import com.example.springframe.beans.BeanDefinition;
-import com.example.springframe.exception.BizException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
