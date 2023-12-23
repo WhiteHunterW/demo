@@ -8,7 +8,11 @@ import com.example.mybatis.binding.MapperRegistry;
  */
 public class DefaultSqlSession implements SqlSession {
 
-    private MapperRegistry mapperRegistry;
+    private final MapperRegistry mapperRegistry;
+
+    public DefaultSqlSession(MapperRegistry mapperRegistry) {
+        this.mapperRegistry = mapperRegistry;
+    }
 
     @Override
     public <T> T selectOne(String statement) {

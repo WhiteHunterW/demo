@@ -1,5 +1,7 @@
 package com.example.mybatis.session;
 
+import com.example.mybatis.binding.MapperRegistry;
+
 /**
  * SqlSession工厂类 创建SqlSession
  * @author wenzeng
@@ -7,9 +9,14 @@ package com.example.mybatis.session;
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory{
 
+    private final MapperRegistry mapperRegistry;
+
+    public DefaultSqlSessionFactory(MapperRegistry mapperRegistry) {
+        this.mapperRegistry = mapperRegistry;
+    }
 
     @Override
     public SqlSession openSqlSession() {
-        return new DefaultSqlSession();
+        return new DefaultSqlSession(mapperRegistry);
     }
 }

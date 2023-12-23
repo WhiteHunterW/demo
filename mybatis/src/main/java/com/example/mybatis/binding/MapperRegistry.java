@@ -9,22 +9,24 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * mapper注册器
  * @author wenzeng
  * @date 2023/12/18
  */
 public class MapperRegistry {
 
-    private final Map<Class<?>, MapperProxyFactory<?>> proxyFactoryMap = new HashMap<>();
+    private final Map<Class<?>, MapperProxyFactory<?>> knownsMapper = new HashMap<>();
 
 
     /**
      * 获取mapper的实例
+     * 从map中取出代理工厂，调用代理工厂类中的newInstance方法生成接口实例
      * @param type
      * @return
      * @param <T>
      */
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
-        MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>)proxyFactoryMap.get(type);
+        MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>)knownsMapper.get(type);
         if(mapperProxyFactory == null) {
             throw new BizException("type: " + type + "don't registered");
         }
@@ -47,9 +49,9 @@ public class MapperRegistry {
         if(!type.isInterface()) {
             throw new BizException("type:" + type + "is not interface");
         }
-        MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) proxyFactoryMap.get(type);
+        MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownsMapper.get(type);
         if(mapperProxyFactory == null) {
-            proxyFactoryMap.put(type, new MapperProxyFactory<>(type));
+            knownsMapper.put(type, new MapperProxyFactory<>(type));
         } else {
             throw new BizException("type: " + type + "is already existed in proxyFactoryMap");
         }
