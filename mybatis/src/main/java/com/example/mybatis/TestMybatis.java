@@ -23,4 +23,14 @@ public class TestMybatis {
         String nameTest = userTestMapper.queryUserName("2");
         log.info("名称查询测试 {}", nameTest);
     }
+
+    @Test
+    public void test() {
+
+    }
+
+    @Test
+    public void proxy() {
+
+    }
 }

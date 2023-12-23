@@ -1,12 +1,13 @@
+package com.example.biz;
 
 import com.example.biz.data.User;
+import com.google.common.collect.Lists;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -23,7 +24,8 @@ import java.util.stream.Collectors;
 public class  FunctionInterfaceTest<T> implements Predicate<T> {
 
     public static void iteratorList(){
-        final List<String> arrayList = Arrays.asList("test1","test2");
+        final List<String> arrayList = Lists.newArrayList("test1", "test2");
+        arrayList.stream().iterator().remove();
         arrayList.stream().filter(Objects::nonNull).map(a -> a + "add").forEach(System.out::println);
     }
 

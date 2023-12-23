@@ -2,7 +2,6 @@ package com.example.biz.service;
 
 import com.example.biz.assembler.UserAssembler;
 import com.example.biz.data.User;
-import com.example.biz.event.UserChangeEvent;
 import com.example.biz.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
