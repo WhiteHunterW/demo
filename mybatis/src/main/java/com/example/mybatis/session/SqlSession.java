@@ -1,7 +1,5 @@
 package com.example.mybatis.session;
 
-import java.util.List;
-
 /**
  * @author wenzeng
  * @date 2023/12/18

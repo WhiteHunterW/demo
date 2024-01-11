@@ -1,6 +1,7 @@
-package com.example.mybatis.session;
+package com.example.mybatis.session.defaults;
 
 import com.example.mybatis.binding.MapperRegistry;
+import com.example.mybatis.session.SqlSession;
 
 /**
  * @author wenzeng

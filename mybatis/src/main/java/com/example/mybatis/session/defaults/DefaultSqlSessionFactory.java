@@ -1,13 +1,15 @@
-package com.example.mybatis.session;
+package com.example.mybatis.session.defaults;
 
 import com.example.mybatis.binding.MapperRegistry;
+import com.example.mybatis.session.SqlSession;
+import com.example.mybatis.session.SqlSessionFactory;
 
 /**
  * SqlSession工厂类 创建SqlSession
  * @author wenzeng
  * @date 2023/12/18
  */
-public class DefaultSqlSessionFactory implements SqlSessionFactory{
+public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
     private final MapperRegistry mapperRegistry;
 

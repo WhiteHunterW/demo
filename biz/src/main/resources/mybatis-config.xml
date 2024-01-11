@@ -33,6 +33,11 @@
     <mappers>-->
         <!--        &lt;!&ndash;这是告诉Mybatis区哪找持久化类的映射文件，对于在src下的文件直接写文件名，-->
         <!--            如果在某包下，则要写明路径,如：com/mybatistest/com.example.springframe.beans.config/User.xml&ndash;&gt;-->
-       <mapper resource="mapper/*.xml"></mapper>
+        <!-- mapper配置的几种方式-->
+        <mapper resource="mapper/*.xml"/>
+        <mapper url="file:///var/mappers/UserTestMapper.xml"/>
+        <mapper class="com.example.biz.mapper.UserMapper"/>
+
+        <package name="com.example.biz.mapper"/>
     </mappers>
 </configuration>
