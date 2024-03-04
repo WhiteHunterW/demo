@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Function:
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private String userName;
 
-    private UserAssembler userAssembler = UserAssembler.INSTANCE;
+    private final UserAssembler userAssembler = UserAssembler.INSTANCE;
 
     public UserServiceImpl() {
 
@@ -54,5 +56,20 @@ public class UserServiceImpl implements UserService {
         userChangeEvent.setOperatorName("test");
         applicationEventPublisher.publishEvent(userChangeEvent);*/
         userMapper.insert(user);
+    }
+
+    @Override
+    public List<User> selectUser(String userName, Integer count) {
+        return userMapper.selectUser(userName, count);
+    }
+
+    @Override
+    public List<User> selectUserMap(Map<String, Object> paramMap) {
+        return userMapper.selectUserMap(paramMap);
+    }
+
+    @Override
+    public List<User> selectUserParam(String userName, Integer count) {
+        return userMapper.selectUserParam(userName, count);
     }
 }

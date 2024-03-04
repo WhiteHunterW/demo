@@ -18,6 +18,17 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.example.biz.data.User">
-        insert into user (name, gender, count, created) values (#{user.name},#{user.gender},#{user.count},#{user.created})
+        insert into user (name, gender, count, created) values (#{name},#{gender},#{count},#{created})
     </insert>
+
+    <select id="selectUser" resultType="com.example.biz.data.User">
+        select * from user where name = #{param1} and count = #{param2}
+    </select>
+
+    <select id="selectUserMap" resultType="com.example.biz.data.User">
+        select * from user where name = #{userName} and count = #{count}
+    </select>
+    <select id="selectUserParam" resultType="com.example.biz.data.User">
+        select * from user where name = #{userName} and count = #{count}
+    </select>
 </mapper>

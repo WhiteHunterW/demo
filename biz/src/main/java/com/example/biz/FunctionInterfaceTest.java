@@ -1,21 +1,15 @@
 package com.example.biz;
 
-import com.example.biz.data.User;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * @author w.z
@@ -45,13 +39,31 @@ public class  FunctionInterfaceTest<T> implements Predicate<T> {
             }
         }*/
 
-        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1696780800, 0, ZoneOffset.of("+8"));
+        /*LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(1696780800, 0, ZoneOffset.of("+8"));
         String timeStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         System.out.println(timeStr);
+*/
+        /*
+        // Collectors.toMap() key重复的时候错误提示的内容是第一个key对应的value值
+        List<User> userList = new ArrayList<>();
+        User user = new User();
+        user.setName("wenzeng");
+        user.setCount(1);
+        userList.add(user);
+        User user1 = new User();
+        user1.setName("wenzeng");
+        user1.setCount(2);
+        userList.add(user1);
+        Map<String, Integer> userMap = userList.stream().collect(Collectors.toMap(User::getName, User::getCount, (a, b) -> {
+            throw new BizException("重复value" + a);
+        }));
+        System.out.println(userMap);*/
 
-        List<User> collection = new ArrayList<>();
-        Map<String, Integer> userMap = collection.stream().collect(Collectors.toMap(User::getName, User::getCount));
-        System.out.println(userMap);
+        // StringBuilder的append() 拼接字符串时，字符串为空，会拼接null字符串
+        String str = null;
+        String stringBuilder = "wenzeng" +
+                str;
+        System.out.printf(stringBuilder);
     }
 
     public static void predicate(){

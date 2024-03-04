@@ -4,8 +4,8 @@ import com.example.mybatis.binding.MapperProxyFactory;
 import com.example.mybatis.binding.MapperRegistry;
 import com.example.mybatis.mapper.RoleMapper;
 import com.example.mybatis.mapper.UserTestMapper;
-import com.example.mybatis.session.defaults.DefaultSqlSessionFactory;
 import com.example.mybatis.session.SqlSession;
+import com.example.mybatis.session.defaults.DefaultSqlSessionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -48,6 +48,5 @@ public class TestMybatis {
 
     @Test
     public void proxy() {
-
     }
 }

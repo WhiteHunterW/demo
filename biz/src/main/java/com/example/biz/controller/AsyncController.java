@@ -74,8 +74,4 @@ public class AsyncController {
         userService.insertUser(user);
     }
 
-    public static void main(String[] args) {
-        Integer i = 1677254400;
-        LocalDate localDate = Instant.ofEpochSecond(i).atZone(ZoneOffset.of("+8")).toLocalDate();
-    }
 }
