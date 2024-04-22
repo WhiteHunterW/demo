@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ InstanceRemainPercentageMapper.xml
+  ~ Copyright 2021 Qunhe Tech, all rights reserved.
+  ~ Qunhe PROPRIETARY/CONFIDENTIAL, any form of usage is subject to approval.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.RoleMapper">
+
+    <select id="getUserRole" parameterType="java.lang.String" resultType="java.lang.String">
+        select *
+        from role where id = #{uuid};
+    </select>
+</mapper>

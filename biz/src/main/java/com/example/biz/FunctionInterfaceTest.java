@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -60,10 +61,6 @@ public class  FunctionInterfaceTest<T> implements Predicate<T> {
         System.out.println(userMap);*/
 
         // StringBuilder的append() 拼接字符串时，字符串为空，会拼接null字符串
-        String str = null;
-        String stringBuilder = "wenzeng" +
-                str;
-        System.out.printf(stringBuilder);
     }
 
     public static void predicate(){

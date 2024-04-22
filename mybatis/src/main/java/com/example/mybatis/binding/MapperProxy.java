@@ -48,14 +48,13 @@ public class MapperProxy<T> implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 传进来的method是目标类的方法
-       /* log.info("当前类 {}", Object.class);
+        /* log.info("当前类 {}", Object.class);
         log.info("方法所在类 {}", method.getDeclaringClass());*/
         if(Object.class.equals(method.getDeclaringClass())) {
             return method.invoke(this, args);
         } else {
             // 调用目标对象中的方法
-            // method.invoke(mapperInterface, args);
-            return "你的类被代理了" + sqlSession.getMapper(this.mapperInterface);
+            return method.invoke(mapperInterface, args);
         }
     }
 }

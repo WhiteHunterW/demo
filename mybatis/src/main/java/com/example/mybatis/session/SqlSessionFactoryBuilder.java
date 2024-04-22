@@ -4,6 +4,7 @@ import com.example.mybatis.builder.xml.XMLConfigBuilder;
 import com.example.mybatis.session.defaults.DefaultSqlSessionFactory;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.io.Reader;
 
 /**
@@ -13,13 +14,13 @@ import java.io.Reader;
 @Slf4j
 public class SqlSessionFactoryBuilder {
 
-    public SqlSessionFactory build(Reader reader) {
+    public SqlSessionFactory build(Reader reader) throws IOException {
         XMLConfigBuilder builder = new XMLConfigBuilder(reader);
-        return null;
+        return build(builder.parse());
     }
 
 
     public SqlSessionFactory build(Configuration configuration) {
-        return new DefaultSqlSessionFactory(configuration.mapperRegistry);
+        return new DefaultSqlSessionFactory(configuration);
     }
 }

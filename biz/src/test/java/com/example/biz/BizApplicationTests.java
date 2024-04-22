@@ -4,16 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.example.biz.data.User;
 import com.example.biz.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;

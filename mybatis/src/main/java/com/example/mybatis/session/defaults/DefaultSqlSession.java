@@ -1,6 +1,7 @@
 package com.example.mybatis.session.defaults;
 
-import com.example.mybatis.binding.MapperRegistry;
+import com.example.mybatis.mapping.MappedStatement;
+import com.example.mybatis.session.Configuration;
 import com.example.mybatis.session.SqlSession;
 
 /**
@@ -9,10 +10,12 @@ import com.example.mybatis.session.SqlSession;
  */
 public class DefaultSqlSession implements SqlSession {
 
-    private final MapperRegistry mapperRegistry;
+    /*private final MapperRegistry mapperRegistry;*/
 
-    public DefaultSqlSession(MapperRegistry mapperRegistry) {
-        this.mapperRegistry = mapperRegistry;
+    private final Configuration configuration;
+
+    public DefaultSqlSession(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
@@ -22,11 +25,12 @@ public class DefaultSqlSession implements SqlSession {
 
     @Override
     public <T> T selectOne(String statement, Object parameter) {
+        MappedStatement mappedStatement = configuration.getMappedStatement(statement);
         return null;
     }
 
     @Override
     public <T> T getMapper(Class<T> type) {
-        return mapperRegistry.getMapper(type, this);
+        return configuration.getMapper(type, this);
     }
 }

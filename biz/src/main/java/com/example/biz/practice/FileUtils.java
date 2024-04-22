@@ -89,8 +89,6 @@ public class FileUtils {
             System.out.println(br.readLine());
         }catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
 
     }
@@ -100,13 +98,13 @@ public class FileUtils {
         fileCur(file);
     }
 
-    public static void fileCur(File file){
+    public static void fileCur(File file) {
         if(file == null){
             return;
         }
         System.out.println(file);
         File[] files = file.listFiles((f, name) -> f.isDirectory() || name.endsWith(".txt"));
-        if(files == null || files.length == 0){
+        if(files == null){
             return;
         }
         for (File f :files) {
