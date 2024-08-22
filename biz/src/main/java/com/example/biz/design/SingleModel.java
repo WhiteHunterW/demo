@@ -12,7 +12,7 @@ public class SingleModel {
     /**
      * 饿汉模式
      */
-    private static SingleModel instance = new SingleModel();
+    private static final SingleModel instance = new SingleModel();
 
     public static SingleModel getInstance(){
         return instance;
@@ -20,6 +20,7 @@ public class SingleModel {
 
     /**
      * 懒汉模式的双检锁保证并发安全
+     * volatile禁止指令重排
      */
     private volatile static SingleModel singleModel;
 

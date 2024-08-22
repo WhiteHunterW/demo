@@ -35,8 +35,8 @@ public interface UserAssembler {
      * @param user
      * @param detail
      * @return
-     */
-    UserInfoVO turnToUser(User user, UserDetail detail);
+     *//*
+    UserInfoVO turnToUser(User user, UserDetail detail);*/
 
     /**
      * convert to user list

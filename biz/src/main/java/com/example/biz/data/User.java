@@ -21,7 +21,7 @@ public class User implements Serializable {
 
     private Date created;
 
-    private int count;
+    private int count= 10;
 
     public User(){
 

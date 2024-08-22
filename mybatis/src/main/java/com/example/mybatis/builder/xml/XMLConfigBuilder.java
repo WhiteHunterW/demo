@@ -4,18 +4,13 @@ import com.example.common.BizException;
 import com.example.mybatis.builder.BaseBuilder;
 import com.example.mybatis.mapping.MappedStatement;
 import com.example.mybatis.session.Configuration;
-import com.sun.javaws.security.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.dom.DOMAttribute;
 import org.dom4j.io.SAXReader;
-import org.dom4j.tree.DefaultAttribute;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -2,6 +2,7 @@ package com.example.biz.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.biz.data.User;
+import com.example.biz.service.RetryService;
 import com.example.biz.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Function:
@@ -25,6 +27,9 @@ public class TestController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private RetryService retryService;
 
     @PostMapping("/test/param")
     public void testParam(@RequestBody Object param) {
@@ -53,5 +58,16 @@ public class TestController {
         log.info("userList {}", JSON.toJSON(userList));
         log.info("userParam {}", JSON.toJSON(userParam));
         log.info("userMap {}", JSON.toJSON(userMap));
+    }
+
+    @GetMapping("/test/service")
+    private void testService() throws TimeoutException {
+        retryService.turnNumber("111");
+        System.out.println("testService");
+    }
+
+    @PutMapping("/test/param")
+    public void tet(@RequestParam("user") String user, @RequestParam("id") Integer id) {
+        System.out.println(111);
     }
 }

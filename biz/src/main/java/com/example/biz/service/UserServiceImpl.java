@@ -58,6 +58,10 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
     }
 
+    private void testInsert(User user) {
+        userMapper.insert(user);
+    }
+
     @Override
     public List<User> selectUser(String userName, Integer count) {
         return userMapper.selectUser(userName, count);
