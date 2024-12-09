@@ -1,5 +1,9 @@
 package com.example.biz.design;
 
+import com.example.biz.data.Customer;
+
+import java.util.List;
+
 /**
  * Function:
  *
@@ -8,5 +12,8 @@ package com.example.biz.design;
  */
 public interface QueryState {
 
-    void query(Object request);
+    List<Customer> query(Object request, List<Customer> dataList);
+
+    void query(DataAccess access);
+
 }
