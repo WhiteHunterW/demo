@@ -22,6 +22,6 @@ public class DesignController {
     @GetMapping("/chain")
     public void testChain() {
         CscQuery query = CscQuery.INSTANCE;
-        query.addNextQueryState(CsmQuery.INSTANCE);
+        query.addNextQueryState();
     }
 }
