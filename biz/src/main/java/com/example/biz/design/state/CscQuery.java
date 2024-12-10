@@ -1,4 +1,4 @@
-package com.example.biz.design;
+package com.example.biz.design.state;
 
 import com.example.biz.data.Customer;
 import lombok.extern.slf4j.Slf4j;
@@ -13,17 +13,18 @@ import java.util.List;
  * @date 2023/2/8
  */
 @Slf4j
-public class CsmQuery extends AbstractQueryState {
+public class CscQuery extends AbstractQueryState {
 
-    public static CsmQuery INSTANCE = new CsmQuery();
+    // 单例模式？
+    public static CscQuery INSTANCE = new CscQuery();
 
-    private CsmQuery(){
-        super(OutSideQuery.INSTANCE);
+    private CscQuery() {
+        super(CsmQuery.INSTANCE);
     }
 
     @Override
     public List<Customer> query(Object request,List<Customer> dataList) {
-        log.info("csm query ");
+        log.info("csc query");
         // 业务查询结果
         List<Customer> queryResult = new ArrayList<>();
         return nextQuerySate.query(request, doFilter(dataList, queryResult));
@@ -31,7 +32,6 @@ public class CsmQuery extends AbstractQueryState {
 
     @Override
     public void addNextQueryState() {
-        nextQuerySate = OutSideQuery.INSTANCE;
+        nextQuerySate = CsmQuery.INSTANCE;
     }
-
 }

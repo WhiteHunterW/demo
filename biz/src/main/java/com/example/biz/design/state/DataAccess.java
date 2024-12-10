@@ -1,4 +1,4 @@
-package com.example.biz.design;
+package com.example.biz.design.state;
 
 import com.example.biz.data.Customer;
 import lombok.Data;

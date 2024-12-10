@@ -1,4 +1,4 @@
-package com.example.biz.design;
+package com.example.biz.design.state;
 
 import com.example.biz.data.Customer;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2024/11/29
  */
 @Slf4j
-public class OutSideQuery extends AbstractQueryState{
+public class OutSideQuery extends AbstractQueryState {
 
     public static OutSideQuery INSTANCE = new OutSideQuery();
 

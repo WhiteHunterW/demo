@@ -3,7 +3,7 @@ package com.example.biz.design;
 
 /**
  * Function:
- *
+ * 单例
  * @author xingche
  * @date 2023/2/7
  */

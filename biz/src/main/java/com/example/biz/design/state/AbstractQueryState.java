@@ -1,4 +1,4 @@
-package com.example.biz.design;
+package com.example.biz.design.state;
 
 import com.example.biz.data.Customer;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,12 @@ import java.util.List;
 
 /**
  * Function:
- *
+ * 责任链
  * @author xingche
  * @date 2023/2/8
  */
 @Slf4j
-public abstract class AbstractQueryState implements QueryState{
+public abstract class AbstractQueryState implements QueryState {
 
     protected QueryState nextQuerySate;
 
@@ -25,7 +25,7 @@ public abstract class AbstractQueryState implements QueryState{
 
     @Override
     public List<Customer> query(Object request, List<Customer> dataList) {
-        // 做通用查询
+        // 做通用查询 子类有单独的查询逻辑就重写查询方法
         log.info("通用查询");
         List<Customer> queryResult = new ArrayList<>();
         // do filter 逐层查询之后数据取交集
@@ -42,9 +42,9 @@ public abstract class AbstractQueryState implements QueryState{
         } else {
 
         }
-        // 3. 设置下一个功能链 并执行下一个功能链
+        /*// 3. 设置下一个功能链 并执行下一个功能链； 设置功能链可以直接通过构造函数实现
         addNextQueryState();
-        nextQuerySate.query(access);
+        nextQuerySate.query(access);*/
     }
 
     /**
