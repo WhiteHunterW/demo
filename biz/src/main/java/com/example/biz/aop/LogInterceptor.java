@@ -36,10 +36,17 @@ public class LogInterceptor {
         pjp.proceed();
     }
 
+    /**
+     * 注解拦截
+     * @param ppj
+     * @param logTest
+     * @throws Throwable
+     */
     @Around("@annotation(logTest)")
     public void logInterceptor(ProceedingJoinPoint ppj, LogTest logTest) throws Throwable {
         String name = logTest.value();
         System.out.println(name);
+        // 拦截逻辑处理结束后 进入业务逻辑
         ppj.proceed();
     }
 

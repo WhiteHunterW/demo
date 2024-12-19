@@ -210,8 +210,8 @@ public class FileUtils {
      * @param <T>
      */
     public static <T> List<T> readerBuffer(String fileName, Class<T> tClass) {
-        InputStreamReader reader;
-        BufferedReader bufferedReader;
+        InputStreamReader reader = null;
+        BufferedReader bufferedReader = null;
         StringJoiner joiner = new StringJoiner("");
         try {
             reader = new InputStreamReader(Files.newInputStream(Paths.get(fileName)), StandardCharsets.UTF_8);
@@ -229,6 +229,17 @@ public class FileUtils {
             return JSON.parseObject(joiner.toString(), new TypeReference<List<T>>(tClass){});
         } catch (Exception e) {
             log.error("readerBuffer -- 读取文件失败", e);
+        } finally {
+            try {
+                if(null != bufferedReader) {
+                    bufferedReader.close();
+                } 
+                if(null != reader) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                log.error("readerBuffer -- 关闭文件流失败", e);
+            }
         }
         return Collections.emptyList();
     }

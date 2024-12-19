@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * Function:
- *
+ * 自定义注解 做对象拆解
  * @author wenzeng
  * @date 2023/11/7
  */

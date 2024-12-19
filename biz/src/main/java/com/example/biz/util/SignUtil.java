@@ -23,9 +23,9 @@ public class SignUtil {
         Map<String, String> params = new HashMap<>();
         params.put("appKey", "e252d7acfd814bc0a74cadfc91ee6b3e");
         params.put("timestamp", String.valueOf(System.currentTimeMillis()));
-        String signature = createHmacSha256Sign(params, "bf56bdcbb4d3041b5b2a739a58c6085cb52544c3");
+        String signature = createHmacSha256Sign(params, "72c295648ef9dcfb2d1a82a6c2f842690e20b08b");
         params.put("signature", signature);
-        String result = HttpUtil.get("https://pre-bipcw.xinchao.com/iuap-api-auth/open-auth/selfAppAuth/getAccessToken", new HashMap<>(params));
+        String result = HttpUtil.get("https://bipcw.xinchao.com/iuap-api-auth/open-auth/selfAppAuth/getAccessToken", new HashMap<>(params));
         JSONObject response = JSON.parseObject(result);
         String code = response.getString("code");
         if (!"00000".equals(code)) {
@@ -67,11 +67,12 @@ public class SignUtil {
         /*Map<String, String> params = new HashMap<>();
         params.put("appKey", "e252d7acfd814bc0a74cadfc91ee6b3e");
         params.put("timestamp", "1731996930565");
-        String signature = createHmacSha256Sign(params, "bf56bdcbb4d3041b5b2a739a58c6085cb52544c3");
+        String signature = createHmacSha256Sign(params, "72c295648ef9dcfb2d1a82a6c2f842690e20b08b");
         System.out.println(signature);*/
-        String a = "frewr";
+        /*String a = "frewr";
         String b = "asdfsdfasdfewrewr";
         System.out.println(a.compareTo(b));
-        System.out.println('f'-'a');
+        System.out.println('f'-'a');*/
+        System.out.println(getAccessToken());
     }
 }

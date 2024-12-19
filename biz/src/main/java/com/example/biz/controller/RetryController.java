@@ -42,6 +42,10 @@ public class RetryController {
         retryService.turnNumber(number);
     }
 
+    /**
+     * excel导出合并指定列
+     * @param response
+     */
     @PostMapping("/test/export")
     public void testExport(HttpServletResponse response){
         List<StatisticDTO> dtoList = new ArrayList<>();
