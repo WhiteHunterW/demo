@@ -1,6 +1,7 @@
 package com.example.biz.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.biz.data.Response;
 import com.example.biz.data.User;
 import com.example.biz.service.RetryService;
 import com.example.biz.service.UserService;
@@ -69,5 +70,10 @@ public class TestController {
     @PutMapping("/test/param")
     public void tet(@RequestParam("user") String user, @RequestParam("id") Integer id) {
         System.out.println(111);
+    }
+
+    @GetMapping("/test/npe")
+    public Response<Void> testException() {
+        throw new NullPointerException();
     }
 }

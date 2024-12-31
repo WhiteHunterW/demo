@@ -3,6 +3,7 @@ package com.example.biz.util;
 import com.example.biz.data.UserInfoVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.validator.HibernateValidator;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import javax.validation.Configuration;
 import javax.validation.ConstraintViolation;

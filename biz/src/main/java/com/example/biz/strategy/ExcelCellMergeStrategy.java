@@ -61,9 +61,9 @@ public class ExcelCellMergeStrategy implements CellWriteHandler {
 
     private void mergeWithPrevRow(WriteSheetHolder writeSheetHolder, Cell cell, int curRowIndex, int curColIndex) {
 
-        Object curData = cell.getCellTypeEnum() == CellType.STRING ? cell.getStringCellValue() : cell.getNumericCellValue();
+        Object curData = cell.getCachedFormulaResultType() == CellType.STRING ? cell.getStringCellValue() : cell.getNumericCellValue();
         Cell preCell = cell.getSheet().getRow(curRowIndex - 1).getCell(curColIndex);
-        Object preData = preCell.getCellTypeEnum() == CellType.STRING ? preCell.getStringCellValue() : preCell.getNumericCellValue();
+        Object preData = preCell.getCachedFormulaResultType() == CellType.STRING ? preCell.getStringCellValue() : preCell.getNumericCellValue();
 
         // 比较当前行的第一列的单元格与上一行是否相同，相同合并当前单元格与上一行
         //

@@ -2,14 +2,12 @@ package com.example.biz.data;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 /**
  * @author wenzeng
  * @date 2024/10/9
  */
 @Data
-public class PublicationRateIndustryResponseDTO extends BaseReponse{
+public class PublicationRateIndustryResponseDTO extends BaseResponse {
 
     /**
      * 新产品线：A0:智慧屏，B0:LCD，C0:电梯海报

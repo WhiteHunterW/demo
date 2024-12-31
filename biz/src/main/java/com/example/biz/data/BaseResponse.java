@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @date 2024/10/9
  */
 @Data
-public class BaseReponse {
+public class BaseResponse {
 
     /**
      * 经营周ID
