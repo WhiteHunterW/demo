@@ -43,6 +43,7 @@ public class DetailTablePolicy extends DynamicTableRenderPolicy {
                 }
                 // 合并单元格
                 TableTools.mergeCellsHorizonal(table, laborsStartRow, 0, 3);
+                TableTools.mergeCellsVertically(table, laborsStartRow, 2,3);
                 TableRenderPolicy.Helper.renderRow(table.getRow(laborsStartRow), labors.get(i));
             }
         }

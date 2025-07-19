@@ -1,12 +1,9 @@
 package com.example.biz.wordengineer;
 
 import com.deepoove.poi.data.NumberingRenderData;
-import com.deepoove.poi.data.TextRenderData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * @author wenzeng

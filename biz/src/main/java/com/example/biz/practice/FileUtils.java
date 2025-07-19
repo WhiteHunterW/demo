@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -222,8 +223,8 @@ public class FileUtils {
                 flg = bufferedReader.read(ch);
             } while (flg != -1);
             return JSON.parseObject(ch, ch.length, List.class);*/
-            String str = bufferedReader.readLine();
-            if(StringUtils.isNotEmpty(str)) {
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
                 joiner.add(str);
             }
             return JSON.parseObject(joiner.toString(), new TypeReference<List<T>>(tClass){});

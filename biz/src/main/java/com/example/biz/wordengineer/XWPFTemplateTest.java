@@ -1,21 +1,38 @@
 package com.example.biz.wordengineer;
 
+import cn.hutool.http.HttpConnection;
+import com.aspose.words.Document;
+import com.aspose.words.FontSettings;
+import com.aspose.words.PdfSaveOptions;
+import com.aspose.words.SaveOptions;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.config.Configure;
 import com.deepoove.poi.data.ChartMultiSeriesRenderData;
 import com.deepoove.poi.data.Charts;
+import com.deepoove.poi.data.Documents;
 import com.deepoove.poi.data.Includes;
 import com.deepoove.poi.data.NumberingFormat;
 import com.deepoove.poi.data.Numberings;
 import com.deepoove.poi.data.Pictures;
 import com.deepoove.poi.data.RowRenderData;
 import com.deepoove.poi.data.Rows;
+import com.deepoove.poi.data.TableRenderData;
 import com.deepoove.poi.data.Tables;
 import com.deepoove.poi.data.Texts;
 import com.deepoove.poi.data.style.BorderStyle;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -25,6 +42,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * word 模版引擎示例
@@ -119,6 +137,78 @@ public class XWPFTemplateTest {
         Configure configure = Configure.builder().bind("detail_table", new DetailTablePolicy()).build();
         XWPFTemplate template = XWPFTemplate.compile("/Users/wenzeng/Downloads/payment.docx", configure).render(param);
         template.writeAndClose(Files.newOutputStream(Paths.get("/Users/wenzeng/Desktop/付款说明书.docx")));
+    }
+
+
+    /**
+     * 表格行合并
+     */
+    public static void contractTemplate() throws IOException {
+        String url = "https://obs.cn-east-2.myhuaweicloud.com/puma-root/_l_tmp%2Ftest%2Fe77aa2517f144cc89baf55a2b158413c.docx";
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(15000);
+        connection.setReadTimeout(60000);
+        Map<String, Object> param = new HashMap<>(16);
+        List<ContractDTO> list = new ArrayList<>();
+        list.add(new ContractDTO("HT20241227001", "北京", "北京科技有限公司", "月结", "每月结算", "软件开发项目1", "50000"));
+        list.add(new ContractDTO("HT20241227001", "北京", "北京科技有限公司", "月结", "每月结算", "软件开发项目2", "50000"));
+        list.add(new ContractDTO("HT20241227001", "北京", "北京科技有限公司", "月结", "每月结算", "软件开发项目3", "50000"));
+        list.add(new ContractDTO("HT20241227001", "北京", "北京科技有限公司", "月结", "每月结算", "软件开发项目4", "50000"));
+        list.add(new ContractDTO("HT20241227001", "北京", "北京科技有限公司", "月结", "每月结算", "软件开发项目5", "50000"));
+
+        list.add(new ContractDTO("HT20241227002", "上海", "上海创新科技公司", "季结", "每季度结算", "系统维护服务1", "30000"));
+        list.add(new ContractDTO("HT20241227002", "上海", "上海创新科技公司", "季结", "每季度结算", "系统维护服务2", "30000"));
+
+        list.add(new ContractDTO("HT20241227003", "广州", "广州智能科技公司", "年结", "每年结算一次", "硬件采购合同1", "80000"));
+        list.add(new ContractDTO("HT20241227003", "广州", "广州智能科技公司", "年结", "每年结算一次", "硬件采购合同2", "80000"));
+        list.add(new ContractDTO("HT20241227003", "广州", "广州智能科技公司", "年结", "每年结算一次", "硬件采购合同3", "80000"));
+        list.add(new ContractDTO("HT20241227003", "广州", "广州智能科技公司", "年结", "每年结算一次", "硬件采购合同4", "80000"));
+        Map<String, List<ContractDTO>> contractMap = list.stream().collect(Collectors.groupingBy(ContractDTO::getContractNo));
+        int total = list.stream().map(ContractDTO::getSettlementAmount).mapToInt(Integer::parseInt).sum();
+        List<RowRenderData> renderDataList = new ArrayList<>(list.size());
+        contractMap.forEach((k, v) -> {
+            for (int i = 0; i < v.size(); i++) {
+                RowRenderData rowRenderData;
+                if(i == v.size() - 1) {
+                    rowRenderData = Rows.of(k, v.get(i).getCity(), v.get(i).getSignName(), v.get(i).getSettlementType(),
+                            v.get(i).getStatisDate(), v.get(i).getPremisesName(), v.get(i).getSettlementAmount()).create();
+                } else {
+                    rowRenderData = Rows.of("","", "", "", "", v.get(i).getPremisesName(), v.get(i).getSettlementAmount()).create();
+                }
+                renderDataList.add(rowRenderData);
+            }
+        });
+        TableRenderData table = Tables.of(renderDataList.toArray(new RowRenderData[0])).create();
+        param.put("contract", table);
+        param.put("total", total);
+        Configure configure = Configure.builder().bind("contract", new ContractTablePolicy()).build();
+        XWPFTemplate template = XWPFTemplate.compile("/Users/wenzeng/Desktop/wz/模版/contract.docx", configure).render(param);
+        template.writeAndClose(Files.newOutputStream(Paths.get("/Users/wenzeng/Desktop/合同确认函.docx")));
+        /*DetailTable detailTable = new DetailTable();
+        detailTable.setGoods(renderDataList);
+        param.put("contract", detailTable);
+        // 生成文件
+        Configure configure = Configure.builder().bind("contract", new ContractTablePolicy()).build();
+        try (InputStream inputStream = connection.getInputStream(); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            XWPFTemplate template = XWPFTemplate.compile(inputStream, configure).render(param);
+            template.write(outputStream);
+            FileOutputStream wordOutPutStream = new FileOutputStream("/Users/wenzeng/Desktop/合同确认函.docx");
+            wordOutPutStream.write(outputStream.toByteArray());
+            // 转成pdf后下载
+            Document document = new Document(new ByteArrayInputStream(outputStream.toByteArray()));
+            PdfSaveOptions options = new PdfSaveOptions();
+            FontSettings settings = new FontSettings();
+            document.setFontSettings(settings);
+            document.save(outputStream, options);
+            FileOutputStream fileOutputStream = new FileOutputStream("/Users/wenzeng/Desktop/合同确认函.pdf");
+            fileOutputStream.write(outputStream.toByteArray());
+            inputStream.close();
+            outputStream.close();
+            fileOutputStream.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }*/
     }
 
     /**
@@ -245,6 +335,6 @@ public class XWPFTemplateTest {
         //paymentTemplate();
         //graphTemplate();
         //resumeTemplate();
-        resumeTemplateV2();
+        contractTemplate();
     }
 }
